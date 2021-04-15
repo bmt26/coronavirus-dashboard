@@ -3,8 +3,9 @@ import { GoogleLogin } from 'react-google-login';
 
 const clientId = process.env.REACT_APP_CLIENT_ID;
 
-function Login() {
+function Login(props) {
     const onSuccess = (res) => {
+        props.setLoggedIn(true);
         console.log('[Login Success] Current User:', res.profileObj);
     };
     
@@ -18,10 +19,10 @@ function Login() {
                 clientId={clientId}
                 buttonText="Login"
                 onSuccess={onSuccess}
-                onFailure={onFailure}
-                cookiePolicy={'single_host_origin'}
+                onFailure={ onFailure }
+                cookiePolicy={ 'single_host_origin' }
                 style={{ marginTop: '100px' }}
-                isSignedIn={true}
+                isSignedIn={ props.loggedIn }
             />
         </div>
     );
