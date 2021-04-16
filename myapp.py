@@ -7,7 +7,13 @@ from requests.auth import HTTPBasicAuth
 
 username = os.getenv('username')
 password = os.getenv('password')
-countries = []
+Countries = []
+NewConfirmed = []
+TotalConfirmed = []
+NewDeaths = []
+TotalDeaths = []
+NewRecovered = []
+TotalRecovered = []
 
 app = Flask(__name__)
 
@@ -18,21 +24,27 @@ req = requests.get(URL, auth=HTTPBasicAuth(username, password))
 response = req.json()
 #print (response)
 
-def GetCountries():
-    #URL for all the countries 
-    URL = 'https://api.covid19api.com/countries'
+def GetData():
+    #URL to get all the data for countries 
+    URL = 'https://api.covid19api.com/summary'
     req = requests.get(URL, auth=HTTPBasicAuth(username, password))
-    response = req.json()
+    response = req.json()['Countries']
     
-    print(response[0]['Country'])
+    #print(response)
     
     for i in range(len(response)):
-        temp = response[i]['Country']
-        countries.append(temp)
-    print(countries)
+        #temp = response[i]['Country']
+        Countries.append(response[i]['Country'])
+        NewConfirmed.append(response[i]['NewConfirmed'])
+        TotalConfirmed.append(response[i]['TotalConfirmed'])
+        NewDeaths.append(response[i]['NewDeaths'])
+        TotalDeaths.append(response[i]['TotalDeaths'])
+        NewRecovered.append(response[i]['NewRecovered'])
+        TotalRecovered.append(response[i]['TotalRecovered'])
 
-GetCountries()
-
+GetData()
+print(TotalDeaths)
+print(TotalConfirmed)
 
 
 """
