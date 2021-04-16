@@ -1,4 +1,3 @@
-import io from 'socket.io-client';
 import React from 'react';
 import { GoogleLogin } from 'react-google-login';
 
@@ -13,6 +12,8 @@ function Login(props) {
         props.setLoggedIn(true);
         // Declare user profile and get basic information
         var profile = googleUser.getBasicProfile();
+        // setUserProfile and store userProfile
+        props.setUserProfile({ 'email': profile.getEmail(), 'name': profile.getName(), 'image': profile.getImageUrl() });
         // Emit user profile information to server
         props.socket.emit('login', { 'email': profile.getEmail(), 'name': profile.getName(), 'image': profile.getImageUrl() });
 
