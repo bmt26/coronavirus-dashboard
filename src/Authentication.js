@@ -3,7 +3,7 @@ import Login from './Login';
 import Logout from './Logout';
 
 // Function to handle user Authentication
-function Authentication() {
+function Authentication(props) {
     // Declare loggedIn and setLoggedIn, set default to false
     const [loggedIn, setLoggedIn] = useState(false);
     

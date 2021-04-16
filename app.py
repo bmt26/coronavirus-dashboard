@@ -37,7 +37,13 @@ SOCKETIO = SocketIO(APP,
 @APP.route('/', defaults={"filename": "index.html"})
 @APP.route('/<path:filename>')
 def index(filename):
+    """ Retrieve index.html and serve to the webpage using Flask """
     return send_from_directory('./build', filename)
+
+@SOCKETIO.on('login')
+def on_login(data):
+    """ Run function when a client emits the 'login' event to the server """
+    print(data)
 
 # Allow for the importing of the app in python shell
 if __name__ == "__main__":
@@ -47,7 +53,3 @@ if __name__ == "__main__":
         host=os.getenv('IP', '0.0.0.0'),
         port=8081 if os.getenv('C9_PORT') else int(os.getenv('PORT', 8081)),
     )
-# APP.run(
-#     host=os.getenv('IP', '0.0.0.0'),
-#     port=8081 if os.getenv('C9_PORT') else int(os.getenv('PORT', 8081)),
-# )
