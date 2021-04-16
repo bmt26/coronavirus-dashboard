@@ -11,7 +11,7 @@ function Authentication(props) {
     if (loggedIn === false) {
         return (
             <div className="App">
-                <Login loggedIn={ loggedIn } setLoggedIn={ setLoggedIn } />
+                <Login loggedIn={ loggedIn } setLoggedIn={ setLoggedIn } socket={ props.socket } />
             </div>
         );
     }
