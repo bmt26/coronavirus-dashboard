@@ -40,10 +40,33 @@ def index(filename):
     """ Retrieve index.html and serve to the webpage using Flask """
     return send_from_directory('./build', filename)
 
+def add_user_to_db(data):
+    """ Function to add a new player to the database """
+    # Prepare variables to enter into database
+    email = data['email']
+    name = data['name']
+    image = data['image']
+    country = "None"
+
+    # Model a new user
+    new_user = models.UserData(email=email, name=name, image=image, country=country)
+
+    # Add new user to database
+    DB.session.add(new_user)
+    
+    # Commit database session
+    DB.session.commit()
+
 @SOCKETIO.on('login')
 def on_login(data):
     """ Run function when a client emits the 'login' event to the server """
     print(data)
+
+    # Check if logged in user exists in database. If not, add user
+    if DB.session.query(models.UserData).filter_by(
+        email=data['email']).first() is None:
+            print("Adding user to database!")
+            add_user_to_db(data)
 
 # Allow for the importing of the app in python shell
 if __name__ == "__main__":

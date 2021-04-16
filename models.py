@@ -13,7 +13,7 @@ class UserData(DB.Model):
     """ Declare the User database with the necessary parameters """
     email = DB.Column(DB.String(100), primary_key=True)
     name = DB.Column(DB.String(80), unique=False, nullable=False)
-    image = DB.Column(DB.String(120), unique=True, nullable=False)
+    image = DB.Column(DB.String(150), unique=True, nullable=False)
     country = DB.Column(DB.String(50), unique=False, nullable=True)
 
     def __repr__(self):
