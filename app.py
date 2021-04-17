@@ -3,19 +3,15 @@ Main driver file for the server.
 """
 
 import os
-from flask import Flask, send_from_directory, json, session
+from flask import Flask, send_from_directory, json
 from flask_socketio import SocketIO
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv, find_dotenv
-import json
-import requests
-from requests.auth import HTTPBasicAuth
 
 # Load environment variables from .env
 load_dotenv(find_dotenv())
 APP = Flask(__name__, static_folder='./build/static')
-
 cors = CORS(APP, resources={r"/*": {"origins": "*"}})
 
 
