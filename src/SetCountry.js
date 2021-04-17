@@ -2,21 +2,24 @@ import React from 'react';
 
 function SetCountry() {
     
-    function setCountry(){
+    const arr = ["Mexico","Canada","Peru", "USA"];
+    
+    function setHomeCountry(){
         var selectedValue = document.getElementById("countries").value;
-        console.log(selectedValue);
+        if(selectedValue !== 'Countries'){
+            console.log(selectedValue);
+        }
     }
     
     return(
-        <form name='formid'>
-              <select name='ddlselect' id="countries">
+        <form>
+              <select name='dropdown' id="countries">
                 <option disabled hidden selected >Countries</option>
-                <option value="Peru">Peru</option>
-                <option value="USA">USA</option>
-                <option value="Mexico">Mexico</option>
-                <option value="Canada">Canada</option>
+                {arr.map((value, i) => (
+                    <option>{value}</option>
+                ))}
               </select>
-              <button type="button" onClick={() => setCountry()}>
+              <button type="button" onClick={() => setHomeCountry()}>
                 Set Country
               </button>
         </form>
