@@ -3,9 +3,9 @@ import React from 'react';
 function UserProfile(props) {
     console.log(props.userProfile['email']);
     return (
-        <div>
-            <h1> Hello, { props.userProfile['name'] }! </h1>
+        <div className="user-profile">
             <img src={ props.userProfile['image'] } />
+            <b> { props.userProfile['name'] } </b>
         </div>
     );
 }
