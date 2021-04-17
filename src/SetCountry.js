@@ -1,20 +1,25 @@
 import React from 'react';
 
 function SetCountry() {
+    
+    function setCountry(){
+        var selectedValue = document.getElementById("countries").value;
+        console.log(selectedValue);
+    }
+    
     return(
-        <div>
-            <form action="/action_page.php">
-              <label for="cars">Choose a car:</label>
-              <select name="cars" id="cars">
-                <option value="volvo">Volvo</option>
-                <option value="saab">Saab</option>
-                <option value="opel">Opel</option>
-                <option value="audi">Audi</option>
+        <form name='formid'>
+              <select name='ddlselect' id="countries">
+                <option disabled hidden selected >Countries</option>
+                <option value="Peru">Peru</option>
+                <option value="USA">USA</option>
+                <option value="Mexico">Mexico</option>
+                <option value="Canada">Canada</option>
               </select>
-              <br></br>
-              <input type="submit" value="Submit"/>
-            </form>
-        </div>
+              <button type="button" onClick={() => setCountry()}>
+                Set Country
+              </button>
+        </form>
     );
 }
 
