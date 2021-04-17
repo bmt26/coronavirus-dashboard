@@ -46,14 +46,14 @@ def GetData():
     #print(response)
     
     for i in range(len(response)):
-        #temp = response[i]['Country']
-        Countries.append(response[i]['Country'])
-        NewConfirmed.append(response[i]['NewConfirmed'])
-        TotalConfirmed.append(response[i]['TotalConfirmed'])
-        NewDeaths.append(response[i]['NewDeaths'])
-        TotalDeaths.append(response[i]['TotalDeaths'])
-        NewRecovered.append(response[i]['NewRecovered'])
-        TotalRecovered.append(response[i]['TotalRecovered'])
+        if response[i]['Country'] not in Countries:
+            Countries.append(response[i]['Country'])
+            NewConfirmed.append(response[i]['NewConfirmed'])
+            TotalConfirmed.append(response[i]['TotalConfirmed'])
+            NewDeaths.append(response[i]['NewDeaths'])
+            TotalDeaths.append(response[i]['TotalDeaths'])
+            NewRecovered.append(response[i]['NewRecovered'])
+            TotalRecovered.append(response[i]['TotalRecovered'])
     
     print("sending the data")
     #socketio.emit('connect', {'countries' : Countries})
@@ -67,6 +67,36 @@ def GetData():
                             'totaldeaths' : TotalDeaths,
                             'newrecovered' : NewRecovered,
                             'totalrecovered' : TotalRecovered,
+                            })
+
+@socketio.on('getstate')
+def GetStates(data):
+    State = []
+    Confirmed = []
+    Deaths = []
+    Recovered = []
+    Active = []
+    country = data['country']
+    print(country)
+    URL = "https://api.covid19api.com/live/country/" + country + "/status/confirmed"
+    req = requests.get(URL, auth=HTTPBasicAuth(username, password))
+    #print(req.json())
+    response = req.json()
+    
+    for i in range(len(response)):
+        if response[i]['Province'] not in State:
+            State.append(response[i]['Province'])
+            Confirmed.append(response[i]['Confirmed'])
+            Deaths.append(response[i]['Deaths'])
+            Recovered.append(response[i]['Recovered'])
+            Active.append(response[i]['Active'])
+    
+    socketio.emit('States', {
+                            'State' : State,
+                            'Confirmed' : Confirmed,
+                            'Deaths' : Deaths,
+                            'Recovered' : Recovered,
+                            'Active' : Active,
                             })
 
 # Note we need to add this line so we can import app in the python shell
