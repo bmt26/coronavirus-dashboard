@@ -19,6 +19,8 @@
 .env.test.local
 .env.production.local
 __pycache__
+Table.js
+Row.js
 
 npm-debug.log*
 yarn-debug.log*
