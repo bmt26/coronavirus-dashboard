@@ -3,17 +3,26 @@ Main driver file for the server.
 """
 
 import os
-from flask import Flask, send_from_directory, json
+from flask import Flask, send_from_directory, json, session
 from flask_socketio import SocketIO
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv, find_dotenv
+import json
+import requests
+from requests.auth import HTTPBasicAuth
 
 # Load environment variables from .env
 load_dotenv(find_dotenv())
-APP = Flask(__name__, static_folder='./build/static')
-cors = CORS(APP, resources={r"/*": {"origins": "*"}})
+app = Flask(__name__, static_folder='./build/static')
 
+cors = CORS(app, resources={r"/*": {"origins": "*"}})
+socketio = SocketIO(
+    app,
+    cors_allowed_origins="*",
+    json=json,
+    manage_session=False
+)
 
 username = os.getenv('username')
 password = os.getenv('password')
@@ -79,9 +88,8 @@ def on_login(data):
             print("Adding user to database!")
             add_user_to_db(data)
 
-@SOCKETIO.on('connect')
+@socketio.on('connect')
 def GetData():
-    '''When the user connects they the server will send all the data'''
     #URL to get all the data for countries 
     URL = 'https://api.covid19api.com/summary'
     req = requests.get(URL, auth=HTTPBasicAuth(username, password))
@@ -103,7 +111,7 @@ def GetData():
     #socketio.emit('connect', {'countries' : Countries})
     #print("Countries: " + str(Countries))
     
-    SOCKETIO.emit('connect', {
+    socketio.emit('connect', {
                             'countries' : Countries, 
                             'newconfirmed' : NewConfirmed, 
                             'totalconfirmed' : TotalConfirmed,
@@ -113,9 +121,8 @@ def GetData():
                             'totalrecovered' : TotalRecovered,
                             })
 
-@SOCKETIO.on('getstate')
+@socketio.on('getstate')
 def GetStates(data):
-    '''When a user clickes on a country it will trigger this fuction'''
     State = []
     Confirmed = []
     Deaths = []
@@ -136,7 +143,7 @@ def GetStates(data):
             Recovered.append(response[i]['Recovered'])
             Active.append(response[i]['Active'])
     
-    SOCKETIO.emit('States', {
+    socketio.emit('States', {
                             'State' : State,
                             'Confirmed' : Confirmed,
                             'Deaths' : Deaths,
