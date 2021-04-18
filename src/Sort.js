@@ -17,10 +17,15 @@ export function SortInit() {
         case "Total Deaths":
         case "New Recovered":
         case "Total Recovered":
+        case "States Confirmed":
+        case "States Deaths":
+        case "States Recovered":
+        case "States Active":
             if (mostleast) { QuickSortMost(statlist, newpos, 0, statlist.length-1); }
             else { QuickSortLeast(statlist, newpos, 0, statlist.length-1); }
             break;
         case "Countries":
+        case "States":
             if (mostleast) { QuickSortLeast(statlist, newpos, 0, statlist.length-1); }
             else { QuickSortMost(statlist, newpos, 0, statlist.length-1); }
             break;

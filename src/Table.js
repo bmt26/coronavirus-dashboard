@@ -99,12 +99,16 @@ useEffect(() => {
     	console.log(deh);
     	console.log(rec);
     	console.log(act);
+        SortTable("States Confirmed", false)
     });
     
   }, []);
 	
 	//Determine which variables to send to be sorted
 	switch(sortstat) {
+    case "Countries":
+    	templist = [...Countries];
+    	break;
   	case "New Confirmed":
   		templist = [...NewConfirmed];
     	break;
@@ -123,8 +127,20 @@ useEffect(() => {
     case "Total Recovered":
     	templist = [...TotalRecovered];
     	break;
-    case "Countries":
-    	templist = [...Countries];
+    case "States":
+  		templist = [...States];
+    	break;
+    case "States Confirmed":
+    	templist = [...StateConfirmed];
+    	break;
+    case "States Deaths":
+    	templist = [...StateDeaths];
+    	break;
+    case "States Recovered":
+    	templist = [...StatesRecovered];
+    	break;
+    case "States Active":
+    	templist = [...StatesActive];
     	break;
     }
   const newpos = SortInit(sortstat, mostleast, templist);
@@ -171,13 +187,22 @@ useEffect(() => {
         	<tr>
         		<th>{ClickedCountry}</th>
         	</tr>
-        	{States.map((state, index) => (
+        	<div>
+        	<tr>
+                <th onClick={() => SortTable("States", (sortstat==="States" ? mostleast : false))} >States{(sortstat==="States" ? (mostleast ? "▲" : "▼") : "◆")}</th>
+        		<th onClick={() => SortTable("States Confirmed", (sortstat==="States Confirmed" ? mostleast : false))} >Total Confirmed{(sortstat==="States Confirmed" ? (mostleast ? "▼" : "▲") : "◆")}</th>
+        		<th onClick={() => SortTable("States Deaths", (sortstat==="States Deaths" ? mostleast : false))} >Total Deaths{(sortstat==="States Deaths" ? (mostleast ? "▼" : "▲") : "◆")}</th>
+        		<th onClick={() => SortTable("States Recovered", (sortstat==="States Recovered" ? mostleast : false))} >Total Recovered{(sortstat==="States Recovered" ? (mostleast ? "▼" : "▲") : "◆")}</th>
+        		<th onClick={() => SortTable("States Active", (sortstat==="States Active" ? mostleast : false))} >Current Active{(sortstat==="States Active" ? (mostleast ? "▼" : "▲") : "◆")}</th>
+            </tr>
+        	</div>
+        	{newpos.map((pos, index) => (
           	<StateTable
-            	states={state}
-            	confirmed={StateConfirmed[index]}
-            	death={StateDeaths[index]}
-            	recovered={StatesRecovered[index]}
-            	active={StatesActive[index]}
+            	states={States[pos]}
+            	confirmed={StateConfirmed[pos]}
+            	death={StateDeaths[pos]}
+            	recovered={StatesRecovered[pos]}
+            	active={StatesActive[pos]}
           	/>
         	  ))}
       	</table>
