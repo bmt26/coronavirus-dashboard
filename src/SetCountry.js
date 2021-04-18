@@ -1,9 +1,10 @@
 import React from 'react';
 import './setcountry.css';
+import { getCountries } from './Table';
 
 function SetCountry() {
     
-    const arr = ["Mexico","Canada","Peru", "USA"];
+    var countriesArr = getCountries();
     
     function setHomeCountry(){
         var selectedValue = document.getElementById("countries").value;
@@ -16,7 +17,7 @@ function SetCountry() {
         <form>
               <select className='dropdown' name='dropdown' id="countries">
                 <option disabled hidden selected >Countries</option>
-                {arr.map((country, i) => (
+                {countriesArr.map((country, i) => (
                     <option>{country}</option>
                 ))}
               </select>

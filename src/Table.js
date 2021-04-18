@@ -7,6 +7,7 @@ import "./TableStyle.css";
 
 const socket = io();
 let currentUser;
+let countriesArr;
 export function Table() {
   const [Countries, setCountries] = useState([]);
   const [NewConfirmed, setNewConfirmed] = useState([]);
@@ -47,6 +48,9 @@ useEffect(() => {
 			console.log("getting data");
 			console.log(data);
 			console.log(data.countries);
+			
+			countriesArr = data.countries;
+			getCountries();
 			
 			const count = [...data.countries];
 			const newconf = [...data.newconfirmed];
@@ -143,4 +147,9 @@ useEffect(() => {
     	
   	</div>
   );
+}
+
+export function getCountries(){
+	// Function to export the list of countries for dropdown list.
+	return countriesArr;
 }
