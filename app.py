@@ -57,6 +57,26 @@ def add_user_to_db(data):
     # Commit database session
     DB.session.commit()
 
+    # Query all user from existing UserData database
+    all_users = models.UserData.query.all()
+
+    # Instantiate users list
+    users = []
+
+    # Loop through all users in database
+    for user in all_users:
+        # Instantiate empty user dictionary
+        user_dict = {}
+        # Set key/value pair and include all user data
+        user_dict['email'] = user.email
+        user_dict['name'] = user.name
+        user_dict['image'] = user.image
+        user_dict['country'] = user.country
+        # Append to user list
+        users.append(user_dict)
+
+    return users
+
 @SOCKETIO.on('login')
 def on_login(data):
     """ Run function when a client emits the 'login' event to the server """
