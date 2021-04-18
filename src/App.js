@@ -1,20 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
-import ParticlesBg from 'particles-bg';
-import SetCountry from './SetCountry';
+import io from 'socket.io-client';
+import { React, useState, useEffect } from 'react';
+import Authentication from './Authentication';
+import { Table } from "./Table.js";
 
+import './App.css';
+
+// Establish and connect to socket connection
+const socket = io();
+
+// Main driver function
 function App() {
+  
   return (
     <div className="App">
-      <div className="display">
-        <ParticlesBg type="circle" bg />
-        <h1>Play Tic Tac Toe, Enjoy!</h1>
-      </div>
-      <div>
-        <SetCountry />
-      </div>
+        <Authentication socket={ socket } />
+        <Table />
     </div>
   );
 }
-
 export default App;
