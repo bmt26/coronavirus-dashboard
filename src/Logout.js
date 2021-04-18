@@ -16,6 +16,7 @@ function Logout(props) {
     return (
         <div>
             <GoogleLogout
+                className="logout-button"
                 clientId={clientId}
                 buttonText="Logout"
                 onLogoutSuccess={onSuccess}
