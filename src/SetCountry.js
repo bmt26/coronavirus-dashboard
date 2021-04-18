@@ -23,7 +23,7 @@ function SetCountry() {
               </select>
               <div className="set">
                   <button type="button" onClick={() => setHomeCountry()}>
-                    Set Country
+                    Set Home Country
                   </button>
               </div>
         </form>
