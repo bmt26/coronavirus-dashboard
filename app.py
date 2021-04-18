@@ -14,15 +14,9 @@ from requests.auth import HTTPBasicAuth
 
 # Load environment variables from .env
 load_dotenv(find_dotenv())
-app = Flask(__name__, static_folder='./build/static')
+APP = Flask(__name__, static_folder='./build/static')
 
-cors = CORS(app, resources={r"/*": {"origins": "*"}})
-socketio = SocketIO(
-    app,
-    cors_allowed_origins="*",
-    json=json,
-    manage_session=False
-)
+cors = CORS(APP, resources={r"/*": {"origins": "*"}})
 
 username = os.getenv('username')
 password = os.getenv('password')
@@ -88,7 +82,7 @@ def on_login(data):
             print("Adding user to database!")
             add_user_to_db(data)
 
-@socketio.on('connect')
+@SOCKETIO.on('connect')
 def GetData():
     #URL to get all the data for countries 
     URL = 'https://api.covid19api.com/summary'
@@ -111,7 +105,7 @@ def GetData():
     #socketio.emit('connect', {'countries' : Countries})
     #print("Countries: " + str(Countries))
     
-    socketio.emit('connect', {
+    SOCKETIO.emit('connect', {
                             'countries' : Countries, 
                             'newconfirmed' : NewConfirmed, 
                             'totalconfirmed' : TotalConfirmed,
@@ -121,7 +115,7 @@ def GetData():
                             'totalrecovered' : TotalRecovered,
                             })
 
-@socketio.on('getstate')
+@SOCKETIO.on('getstate')
 def GetStates(data):
     State = []
     Confirmed = []
@@ -143,7 +137,7 @@ def GetStates(data):
             Recovered.append(response[i]['Recovered'])
             Active.append(response[i]['Active'])
     
-    socketio.emit('States', {
+    SOCKETIO.emit('States', {
                             'State' : State,
                             'Confirmed' : Confirmed,
                             'Deaths' : Deaths,
