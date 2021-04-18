@@ -29,8 +29,8 @@ export function Table(props) {
 	
 	const [ClickedCountry, setClickedCountry] = useState([]);
 	
-	const sortstat = props.sortstat;
-	const mostleast = props.mostleast;
+	const [MostLeast, setMostLeast] = useState([]);
+	const [SortStat, setSortStat] =useState([]);
 	var templist = [];
 	
 
@@ -46,8 +46,21 @@ function showtable(){
 	console.log("back button clicked");
 	console.log(ClickedCountry);
 	setShowStates(false);
-	setShowCountries(true); 
-	SortTable("Total Confirmed", false)
+	setShowCountries(true);
+	SortTable("Total Confirmed");
+}
+
+function SortTable() {
+    //Determine which variables to send to be sorted
+    setMostLeast(true);
+    if(SortStat===arguments[0]) {
+        setMostLeast(!MostLeast);
+    }
+    else {
+        setMostLeast(true);
+    }
+    setSortStat(arguments[0]);
+	
 }
 
 useEffect(() => {
@@ -76,6 +89,7 @@ useEffect(() => {
 		catch(err){
 			console.log(err.message);
 		}
+		SortTable("Total Confirmed");
     });
     
     socket.on('States', (data) => {
@@ -100,13 +114,12 @@ useEffect(() => {
     	console.log(deh);
     	console.log(rec);
     	console.log(act);
-        SortTable("States Confirmed", false)
+        SortTable("States Confirmed")
     });
     
   }, []);
 	
-	//Determine which variables to send to be sorted
-	switch(sortstat) {
+  switch(SortStat) {
     case "Countries":
     	templist = [...Countries];
     	break;
@@ -144,7 +157,7 @@ useEffect(() => {
     	templist = [...StatesActive];
     	break;
     }
-  const newpos = SortInit(sortstat, mostleast, templist);
+  const newpos = SortInit(SortStat, MostLeast, templist);
   return(
   	<div id="Covid19_Stats">
   		<div>
@@ -155,13 +168,13 @@ useEffect(() => {
         	</tr>
         	<div>
         	<tr>
-                <th onClick={() => SortTable("Countries", (sortstat==="Countries" ? mostleast : false))} >Countries{(sortstat==="Countries" ? (mostleast ? "▲" : "▼") : "◆")}</th>
-        		<th onClick={() => SortTable("New Confirmed", (sortstat==="New Confirmed" ? mostleast : false))} >New Confirmed{(sortstat==="New Confirmed" ? (mostleast ? "▼" : "▲") : "◆")}</th>
-        		<th onClick={() => SortTable("Total Confirmed", (sortstat==="Total Confirmed" ? mostleast : false))} >Total Confirmed{(sortstat==="Total Confirmed" ? (mostleast ? "▼" : "▲") : "◆")}</th>
-        		<th onClick={() => SortTable("New Deaths", (sortstat==="New Deaths" ? mostleast : false))} >New Deaths{(sortstat==="New Deaths" ? (mostleast ? "▼" : "▲") : "◆")}</th>
-        		<th onClick={() => SortTable("Total Deaths", (sortstat==="Total Deaths" ? mostleast : false))} >Total Deaths{(sortstat==="Total Deaths" ? (mostleast ? "▼" : "▲") : "◆")}</th>
-        		<th onClick={() => SortTable("New Recovered", (sortstat==="New Recovered" ? mostleast : false))} >New Recovered{(sortstat==="New Recovered" ? (mostleast ? "▼" : "▲") : "◆")}</th>
-        		<th onClick={() => SortTable("Total Recovered", (sortstat==="Total Recovered" ? mostleast : false))} >Total Recovered{(sortstat==="Total Recovered" ? (mostleast ? "▼" : "▲") : "◆")}</th>
+                <th onClick={() => SortTable("Countries")} >Countries{(SortStat==="Countries" ? (MostLeast ? "▲" : "▼") : "◆")}</th>
+        		<th onClick={() => SortTable("New Confirmed")} >New Confirmed{(SortStat==="New Confirmed" ? (MostLeast ? "▼" : "▲") : "◆")}</th>
+        		<th onClick={() => SortTable("Total Confirmed")} >Total Confirmed{(SortStat==="Total Confirmed" ? (MostLeast ? "▼" : "▲") : "◆")}</th>
+        		<th onClick={() => SortTable("New Deaths")} >New Deaths{(SortStat==="New Deaths" ? (MostLeast ? "▼" : "▲") : "◆")}</th>
+        		<th onClick={() => SortTable("Total Deaths")} >Total Deaths{(SortStat==="Total Deaths" ? (MostLeast ? "▼" : "▲") : "◆")}</th>
+        		<th onClick={() => SortTable("New Recovered")} >New Recovered{(SortStat==="New Recovered" ? (MostLeast ? "▼" : "▲") : "◆")}</th>
+        		<th onClick={() => SortTable("Total Recovered")} >Total Recovered{(SortStat==="Total Recovered" ? (MostLeast ? "▼" : "▲") : "◆")}</th>
             </tr>
             </div>
         	{newpos.map((pos, index) => (
@@ -190,11 +203,11 @@ useEffect(() => {
         	</tr>
         	<div>
         	<tr>
-                <th onClick={() => SortTable("States", (sortstat==="States" ? mostleast : false))} >States{(sortstat==="States" ? (mostleast ? "▲" : "▼") : "◆")}</th>
-        		<th onClick={() => SortTable("States Confirmed", (sortstat==="States Confirmed" ? mostleast : false))} >Total Confirmed{(sortstat==="States Confirmed" ? (mostleast ? "▼" : "▲") : "◆")}</th>
-        		<th onClick={() => SortTable("States Deaths", (sortstat==="States Deaths" ? mostleast : false))} >Total Deaths{(sortstat==="States Deaths" ? (mostleast ? "▼" : "▲") : "◆")}</th>
-        		<th onClick={() => SortTable("States Recovered", (sortstat==="States Recovered" ? mostleast : false))} >Total Recovered{(sortstat==="States Recovered" ? (mostleast ? "▼" : "▲") : "◆")}</th>
-        		<th onClick={() => SortTable("States Active", (sortstat==="States Active" ? mostleast : false))} >Current Active{(sortstat==="States Active" ? (mostleast ? "▼" : "▲") : "◆")}</th>
+                <th onClick={() => SortTable("States")} >States{(SortStat==="States" ? (MostLeast ? "▲" : "▼") : "◆")}</th>
+        		<th onClick={() => SortTable("States Confirmed")} >Total Confirmed{(SortStat==="States Confirmed" ? (MostLeast ? "▼" : "▲") : "◆")}</th>
+        		<th onClick={() => SortTable("States Deaths")} >Total Deaths{(SortStat==="States Deaths" ? (MostLeast ? "▼" : "▲") : "◆")}</th>
+        		<th onClick={() => SortTable("States Recovered")} >Total Recovered{(SortStat==="States Recovered" ? (MostLeast ? "▼" : "▲") : "◆")}</th>
+        		<th onClick={() => SortTable("States Active")} >Current Active{(SortStat==="States Active" ? (MostLeast ? "▼" : "▲") : "◆")}</th>
             </tr>
         	</div>
         	{newpos.map((pos, index) => (
@@ -213,13 +226,6 @@ useEffect(() => {
     	
   	</div>
   );
-}
-
-function SortTable() {
-    ReactDom.render(
-        <Table sortstat={arguments[0]} mostleast={!arguments[1]}/>,
-        document.getElementById("Covid19_Stats")
-    );
 }
 Table.propTypes = {
   sortstat: PropTypes.node.isRequired,

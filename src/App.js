@@ -14,7 +14,7 @@ function App() {
   return (
     <div className="App">
       <Authentication socket={ socket } />
-      <Table sortstat="Total Confirmed" mostleast={true}/>
+      <Table />
     </div>
   );
 }
