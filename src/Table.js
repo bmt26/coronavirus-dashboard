@@ -122,6 +122,7 @@ useEffect(() => {
     	break;
     case "Total Recovered":
     	templist = [...TotalRecovered];
+    	break;
     case "Countries":
     	templist = [...Countries];
     	break;
@@ -137,13 +138,13 @@ useEffect(() => {
         	</tr>
         	<div>
         	<tr>
-                <th onClick={() => SortTable("Countries", mostleast)} >Countries </th>
-        		<th onClick={() => SortTable("New Confirmed", mostleast)} >New Confirmed</th>
-        		<th onClick={() => SortTable("Total Confirmed", mostleast)} >Total Confirmed</th>
-        		<th onClick={() => SortTable("New Deaths", mostleast)} >New Deaths</th>
-        		<th onClick={() => SortTable("Total Deaths", mostleast)} >Total Deaths</th>
-        		<th onClick={() => SortTable("New Recovered", mostleast)} >New Recovered</th>
-        		<th onClick={() => SortTable("Total Recovered", mostleast)} >Total Recovered</th>
+                <th onClick={() => SortTable("Countries", (sortstat==="Countries" ? mostleast : false))} >Countries{(sortstat==="Countries" ? (mostleast ? "▲" : "▼") : "◆")}</th>
+        		<th onClick={() => SortTable("New Confirmed", (sortstat==="New Confirmed" ? mostleast : false))} >New Confirmed{(sortstat==="New Confirmed" ? (mostleast ? "▼" : "▲") : "◆")}</th>
+        		<th onClick={() => SortTable("Total Confirmed", (sortstat==="Total Confirmed" ? mostleast : false))} >Total Confirmed{(sortstat==="Total Confirmed" ? (mostleast ? "▼" : "▲") : "◆")}</th>
+        		<th onClick={() => SortTable("New Deaths", (sortstat==="New Deaths" ? mostleast : false))} >New Deaths{(sortstat==="New Deaths" ? (mostleast ? "▼" : "▲") : "◆")}</th>
+        		<th onClick={() => SortTable("Total Deaths", (sortstat==="Total Deaths" ? mostleast : false))} >Total Deaths{(sortstat==="Total Deaths" ? (mostleast ? "▼" : "▲") : "◆")}</th>
+        		<th onClick={() => SortTable("New Recovered", (sortstat==="New Recovered" ? mostleast : false))} >New Recovered{(sortstat==="New Recovered" ? (mostleast ? "▼" : "▲") : "◆")}</th>
+        		<th onClick={() => SortTable("Total Recovered", (sortstat==="Total Recovered" ? mostleast : false))} >Total Recovered{(sortstat==="Total Recovered" ? (mostleast ? "▼" : "▲") : "◆")}</th>
             </tr>
             </div>
         	{newpos.map((pos, index) => (
@@ -189,7 +190,6 @@ useEffect(() => {
 }
 
 function SortTable() {
-    console.log(arguments[0], !arguments[1])
     ReactDom.render(
         <Table sortstat={arguments[0]} mostleast={!arguments[1]}/>,
         document.getElementById("Covid19_Stats")
