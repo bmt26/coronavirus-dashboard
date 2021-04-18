@@ -46,7 +46,8 @@ function showtable(){
 	console.log("back button clicked");
 	console.log(ClickedCountry);
 	setShowStates(false);
-	setShowCountries(true);
+	setShowCountries(true); 
+	SortTable("Total Confirmed", false)
 }
 
 useEffect(() => {
