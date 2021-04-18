@@ -4,7 +4,9 @@ import io from 'socket.io-client';
 import { MakeTable } from './MakeTable.js';
 import { StateTable } from './StatesTable.js';
 import { SortInit } from './Sort.js';
+import PropTypes from "prop-types";
 import "./TableStyle.css";
+import ReactDom from "react-dom";
 
 const socket = io();
 let currentUser;
@@ -125,13 +127,24 @@ useEffect(() => {
     }
   const newpos = SortInit(sortstat, true, templist);
   return(
-  	<div>
+  	<div id="Covid19_Stats">
   		<div>
   		{ShowCountries === true ? (
   			<table id="customers">
         	<tr>
         		<th>Coronavirus Stats</th>
         	</tr>
+        	<div>
+        	<tr>
+            <th onClick={() => SortTable("Countries")} >Countries </th>
+        		<th onClick={() => SortTable("New Confirmed")} >New Confirmed</th>
+        		<th onClick={() => SortTable("Total Confirmed")} >Total Confirmed</th>
+        		<th onClick={() => SortTable("New Deaths")} >New Deaths</th>
+        		<th onClick={() => SortTable("Total Deaths")} >Total Deaths</th>
+        		<th onClick={() => SortTable("New Recovered")} >New Recovered</th>
+        		<th onClick={() => SortTable("Total Recovered")} >Total Recovered</th>
+          </tr>
+          </div>
         	{newpos.map((pos, index) => (
           	<MakeTable
             	countries={Countries[pos]}
@@ -173,3 +186,13 @@ useEffect(() => {
   	</div>
   );
 }
+
+function SortTable() {
+    ReactDom.render(
+        <Table sortstat={arguments[0]} />,
+        document.getElementById("Covid19_Stats")
+    );
+}
+Table.propTypes = {
+  sortstat: PropTypes.node.isRequired,
+};
