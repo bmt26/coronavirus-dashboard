@@ -1,4 +1,5 @@
 import React from 'react';
+import './setcountry.css';
 
 function SetCountry() {
     
@@ -13,15 +14,17 @@ function SetCountry() {
     
     return(
         <form>
-              <select name='dropdown' id="countries">
+              <select className='dropdown' name='dropdown' id="countries">
                 <option disabled hidden selected >Countries</option>
-                {arr.map((value, i) => (
-                    <option>{value}</option>
+                {arr.map((country, i) => (
+                    <option>{country}</option>
                 ))}
               </select>
-              <button type="button" onClick={() => setHomeCountry()}>
-                Set Country
-              </button>
+              <div className="set">
+                  <button type="button" onClick={() => setHomeCountry()}>
+                    Set Country
+                  </button>
+              </div>
         </form>
     );
 }
