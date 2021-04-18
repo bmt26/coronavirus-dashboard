@@ -1,32 +1,46 @@
 /*test functions for sorting of Covid-19 Statistics*/
 
 //Sets value of statlist array to that of the specified Covid-19 stat and call the corresponding sort function
-function SortInit(statnum, mostleast) {
-    var statlist=[5, 4, 3, 2, 1];
-    switch(statnum) {
-        case 0:
-        case 1:
-            if (mostleast) { statlist = QuickSortNumMost(statlist, 0, statlist.length-1); }
-            else { statlist = SortNumLeast(statlist); }
+export function SortInit() {
+    var sortstat=arguments[0];
+    var mostleast=arguments[1];
+    var statlist=arguments[2];
+    var newpos=[];
+    var i;
+    for (i = 0; i<statlist.length; i++) {
+        newpos[i]=i;
+    }
+    switch(sortstat) {
+        case "New Confirmed":
+        case "Total Confirmed":
+        case "New Deaths":
+        case "Total Deaths":
+        case "New Recovered":
+        case "Total Recovered":
+            if (mostleast) { QuickSortNumMost(statlist, newpos, 0, statlist.length-1); }
+            else { SortNumLeast(statlist, newpos); }
             break;
-        case 2:
-        case 3:
-            if (mostleast) { statlist = QuickSortStringAZ(statlist, 0, statlist.length-1); }
-            else { statlist = SortStringZA(statlist); }
+        case "Countries":
+            if (mostleast) { QuickSortStringAZ(statlist, newpos, 0, statlist.length-1); }
+            else { SortStringZA(statlist, newpos); }
             break;
     }
-    return statlist;
+    console.log(newpos);
+    return newpos;
 }
 
 //Swaps the value of two statlist items
-function Swap(statlist, index1, index2) {
-    const temp = statlist[index1];
-    statlist[index1] = statlist[index2]
+function Swap(statlist, newpos, index1, index2) {
+    var temp = statlist[index1];
+    statlist[index1] = statlist[index2];
     statlist[index2] = temp;
+    temp = newpos[index1];
+    newpos[index1] = newpos[index2];
+    newpos[index2] = temp;
 }
 
 //Partitions stats based on which is greater
-function PartitionNumMost(statlist, left, right) {
+function PartitionNumMost(statlist, newpos, left, right) {
     var pivot = statlist[Math.floor((left+right)/2)];
     var x = left;
     var y = right;
@@ -39,7 +53,7 @@ function PartitionNumMost(statlist, left, right) {
             y--;
         }
         if (y >= x)  {
-            Swap(statlist, x, y);
+            Swap(statlist, newpos, x, y);
             x++;
             y--;
         }
@@ -48,35 +62,33 @@ function PartitionNumMost(statlist, left, right) {
 }
 
 //Sorts numerical Covid-19 statistics from greatest to least.
-function QuickSortNumMost(statlist, left, right) {
+function QuickSortNumMost(statlist, newpos, left, right) {
     var index;
     
     if (statlist.length>1) {
-        index =  PartitionNumMost(statlist, left, right); 
+        index =  PartitionNumMost(statlist, newpos, left, right); 
         
         if (index-1 > left) {
-            QuickSortNumMost(statlist, left, index-1);
+            QuickSortNumMost(statlist, newpos, left, index-1);
         }
         
         if (right > index) {
-            QuickSortNumMost(statlist, index, right);
+            QuickSortNumMost(statlist, newpos, index, right);
         }
     }
-    return statlist;
 }
 
 //Sorts numerical Covid-19 statistics from least to greatest.
 // -> dont need to entirely sort it, just reverse the order
-function SortNumLeast(statlist) {
+function SortNumLeast(statlist, newpos) {
     var i;
     for (i = 0; i < Math.floor(statlist.length/2); i++) {
-        Swap(statlist, i, statlist.length-1-i);
+        Swap(statlist, newpos, i, statlist.length-1-i);
     }
-    return statlist;
 }
 
 //Partitions stats based on alphabetical order
-function PartitionStringAZ(statlist, left, right) {
+function PartitionStringAZ(statlist, newpos, left, right) {
     var pivot = statlist[Math.floor((left+right)/2)];
     var x = left;
     var y = right;
@@ -89,7 +101,7 @@ function PartitionStringAZ(statlist, left, right) {
             y--;
         }
         if (y >= x)  {
-            Swap(statlist, x, y);
+            Swap(statlist, newpos, x, y);
             x++;
             y--;
         }
@@ -98,32 +110,30 @@ function PartitionStringAZ(statlist, left, right) {
 }
 
 //Sorts string Covid-19 statistics in alphabetical order.
-function QuickSortStringAZ(statlist, left, right) {
+function QuickSortStringAZ(statlist, newpos, left, right) {
     var index;
     
     if (statlist.length>1) {
-        index =  PartitionStringAZ(statlist, left, right); 
+        index =  PartitionStringAZ(statlist, newpos, left, right); 
         
         if (index-1 > left) {
-            QuickSortStringAZ(statlist, left, index-1);
+            QuickSortStringAZ(statlist, newpos, left, index-1);
         }
         
         if (right > index) {
-            QuickSortStringAZ(statlist, index, right);
+            QuickSortStringAZ(statlist, newpos, index, right);
         }
     }
-    return statlist;
 }
 
 //Sorts string Covid-19 statistics in reverse alphabetical order
 // -> dont need to entirely sort it, just reverse the order
-function SortStringZA(statlist) {
+function SortStringZA(statlist, newpos) {
     var i;
     for (i = 0; i < Math.floor(statlist.length/2); i++) {
-        Swap(statlist, i, statlist.length-1-i);
+        Swap(statlist, newpos, i, statlist.length-1-i);
     }
-    return statlist;
 }
 
 
-console.log(SortInit(2, false));
+export default SortInit;

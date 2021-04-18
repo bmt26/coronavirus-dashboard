@@ -13,7 +13,7 @@ function App() {
   return (
     <div className="App">
       <Authentication />
-      <Table />
+      <Table sortstat="Total Confirmed"/>
     </div>
   );
 }

@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 import io from 'socket.io-client';
-import { MakeTable } from './MakeTable.js'
-import { StateTable } from './StatesTable.js'
+import { MakeTable } from './MakeTable.js';
+import { StateTable } from './StatesTable.js';
+import { SortInit } from './Sort.js';
 import "./TableStyle.css";
 
 const socket = io();
 let currentUser;
-export function Table() {
+export function Table(props) {
   const [Countries, setCountries] = useState([]);
   const [NewConfirmed, setNewConfirmed] = useState([]);
   const [TotalConfirmed, setTotalConfirmed] = useState([]);
@@ -25,6 +26,10 @@ export function Table() {
   const [StatesActive, setStatesActive] = useState([]);
 	
 	const [ClickedCountry, setClickedCountry] = useState([]);
+	
+	var sortstat = props.sortstat;
+	var templist = [];
+	
 
 function GetStates(country){
 	console.log("Clicked");
@@ -95,6 +100,30 @@ useEffect(() => {
     
   }, []);
 	
+	//Determine which variables to send to be sorted
+	switch(sortstat) {
+  	case "New Confirmed":
+  		templist = [...NewConfirmed];
+    	break;
+    case "Total Confirmed":
+    	templist = [...TotalConfirmed];
+    	break;
+    case "New Deaths":
+    	templist = [...NewDeaths];
+    	break;
+    case "Total Deaths":
+    	templist = [...TotalDeaths];
+    	break;
+    case "New Recovered":
+    	templist = [...NewRecovered];
+    	break;
+    case "Total Recovered":
+    	templist = [...TotalRecovered];
+    case "Countries":
+    	templist = [...Countries];
+    	break;
+    }
+  const newpos = SortInit(sortstat, true, templist);
   return(
   	<div>
   		<div>
@@ -103,15 +132,15 @@ useEffect(() => {
         	<tr>
         		<th>Coronavirus Stats</th>
         	</tr>
-        	{Countries.map((country, index) => (
+        	{newpos.map((pos, index) => (
           	<MakeTable
-            	countries={country}
-            	newconfirmed={NewConfirmed[index]}
-            	totalconfirmed={TotalConfirmed[index]}
-            	newdeaths={NewDeaths[index]}
-            	totaldeaths={TotalDeaths[index]}
-            	newrecovered={NewRecovered[index]}
-            	totalrecovered={TotalRecovered[index]}
+            	countries={Countries[pos]}
+            	newconfirmed={NewConfirmed[pos]}
+            	totalconfirmed={TotalConfirmed[pos]}
+            	newdeaths={NewDeaths[pos]}
+            	totaldeaths={TotalDeaths[pos]}
+            	newrecovered={NewRecovered[pos]}
+            	totalrecovered={TotalRecovered[pos]}
             	index={index}
             	GetStates={GetStates}
           	/>
