@@ -3,16 +3,30 @@ Main driver file for the server.
 """
 
 import os
-from flask import Flask, send_from_directory, json
+from flask import Flask, send_from_directory, json, session
 from flask_socketio import SocketIO
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv, find_dotenv
+import json
+import requests
+from requests.auth import HTTPBasicAuth
 
 # Load environment variables from .env
 load_dotenv(find_dotenv())
-
 APP = Flask(__name__, static_folder='./build/static')
+
+cors = CORS(APP, resources={r"/*": {"origins": "*"}})
+
+username = os.getenv('username')
+password = os.getenv('password')
+Countries = []
+NewConfirmed = []
+TotalConfirmed = []
+NewDeaths = []
+TotalDeaths = []
+NewRecovered = []
+TotalRecovered = []
 
 # Point SQLAlchemy to Heroku database
 APP.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
@@ -68,6 +82,69 @@ def on_login(data):
             print("Adding user to database!")
             add_user_to_db(data)
 
+@SOCKETIO.on('connect')
+def GetData():
+    #URL to get all the data for countries 
+    URL = 'https://api.covid19api.com/summary'
+    req = requests.get(URL, auth=HTTPBasicAuth(username, password))
+    response = req.json()['Countries']
+    
+    #print(response)
+    
+    for i in range(len(response)):
+        if response[i]['Country'] not in Countries:
+            Countries.append(response[i]['Country'])
+            NewConfirmed.append(response[i]['NewConfirmed'])
+            TotalConfirmed.append(response[i]['TotalConfirmed'])
+            NewDeaths.append(response[i]['NewDeaths'])
+            TotalDeaths.append(response[i]['TotalDeaths'])
+            NewRecovered.append(response[i]['NewRecovered'])
+            TotalRecovered.append(response[i]['TotalRecovered'])
+    
+    print("sending the data")
+    #socketio.emit('connect', {'countries' : Countries})
+    #print("Countries: " + str(Countries))
+    
+    SOCKETIO.emit('connect', {
+                            'countries' : Countries, 
+                            'newconfirmed' : NewConfirmed, 
+                            'totalconfirmed' : TotalConfirmed,
+                            'newdeaths' : NewDeaths,
+                            'totaldeaths' : TotalDeaths,
+                            'newrecovered' : NewRecovered,
+                            'totalrecovered' : TotalRecovered,
+                            })
+
+@SOCKETIO.on('getstate')
+def GetStates(data):
+    State = []
+    Confirmed = []
+    Deaths = []
+    Recovered = []
+    Active = []
+    country = data['country']
+    print(country)
+    URL = "https://api.covid19api.com/live/country/" + country + "/status/confirmed"
+    req = requests.get(URL, auth=HTTPBasicAuth(username, password))
+    #print(req.json())
+    response = req.json()
+    
+    for i in range(len(response)):
+        if response[i]['Province'] not in State:
+            State.append(response[i]['Province'])
+            Confirmed.append(response[i]['Confirmed'])
+            Deaths.append(response[i]['Deaths'])
+            Recovered.append(response[i]['Recovered'])
+            Active.append(response[i]['Active'])
+    
+    SOCKETIO.emit('States', {
+                            'State' : State,
+                            'Confirmed' : Confirmed,
+                            'Deaths' : Deaths,
+                            'Recovered' : Recovered,
+                            'Active' : Active,
+                            })
+    
 # Allow for the importing of the app in python shell
 if __name__ == "__main__":
     # Call SOCKETIO.run with app arg
