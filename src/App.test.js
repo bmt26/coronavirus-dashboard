@@ -4,10 +4,10 @@ import App from './App';
 
 const getLoginButton = () => {
   return screen.getByText("Login");
-}
+};
 
 test("Ensure that the Login button appears upon user landing", () => {
   const result = render(<App />);
-  const loginButton = getLoginButton();
+  const loginButton = getLoginButton(result);
   expect(loginButton).toBeInTheDocument();
 });
