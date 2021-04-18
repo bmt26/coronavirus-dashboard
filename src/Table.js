@@ -29,7 +29,8 @@ export function Table(props) {
 	
 	const [ClickedCountry, setClickedCountry] = useState([]);
 	
-	var sortstat = props.sortstat;
+	const sortstat = props.sortstat;
+	const mostleast = props.mostleast;
 	var templist = [];
 	
 
@@ -125,7 +126,7 @@ useEffect(() => {
     	templist = [...Countries];
     	break;
     }
-  const newpos = SortInit(sortstat, true, templist);
+  const newpos = SortInit(sortstat, mostleast, templist);
   return(
   	<div id="Covid19_Stats">
   		<div>
@@ -136,15 +137,15 @@ useEffect(() => {
         	</tr>
         	<div>
         	<tr>
-            <th onClick={() => SortTable("Countries")} >Countries </th>
-        		<th onClick={() => SortTable("New Confirmed")} >New Confirmed</th>
-        		<th onClick={() => SortTable("Total Confirmed")} >Total Confirmed</th>
-        		<th onClick={() => SortTable("New Deaths")} >New Deaths</th>
-        		<th onClick={() => SortTable("Total Deaths")} >Total Deaths</th>
-        		<th onClick={() => SortTable("New Recovered")} >New Recovered</th>
-        		<th onClick={() => SortTable("Total Recovered")} >Total Recovered</th>
-          </tr>
-          </div>
+                <th onClick={() => SortTable("Countries", mostleast)} >Countries </th>
+        		<th onClick={() => SortTable("New Confirmed", mostleast)} >New Confirmed</th>
+        		<th onClick={() => SortTable("Total Confirmed", mostleast)} >Total Confirmed</th>
+        		<th onClick={() => SortTable("New Deaths", mostleast)} >New Deaths</th>
+        		<th onClick={() => SortTable("Total Deaths", mostleast)} >Total Deaths</th>
+        		<th onClick={() => SortTable("New Recovered", mostleast)} >New Recovered</th>
+        		<th onClick={() => SortTable("Total Recovered", mostleast)} >Total Recovered</th>
+            </tr>
+            </div>
         	{newpos.map((pos, index) => (
           	<MakeTable
             	countries={Countries[pos]}
@@ -188,11 +189,13 @@ useEffect(() => {
 }
 
 function SortTable() {
+    console.log(arguments[0], !arguments[1])
     ReactDom.render(
-        <Table sortstat={arguments[0]} />,
+        <Table sortstat={arguments[0]} mostleast={!arguments[1]}/>,
         document.getElementById("Covid19_Stats")
     );
 }
 Table.propTypes = {
   sortstat: PropTypes.node.isRequired,
+  mostleast: PropTypes.node.isRequired,
 };

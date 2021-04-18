@@ -25,7 +25,6 @@ export function SortInit() {
             else { SortStringZA(statlist, newpos); }
             break;
     }
-    console.log(newpos);
     return newpos;
 }
 

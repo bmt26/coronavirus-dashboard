@@ -13,7 +13,7 @@ function App() {
   return (
     <div className="App">
       <Authentication />
-      <Table sortstat="Total Confirmed"/>
+      <Table sortstat="Total Confirmed" mostleast={true}/>
     </div>
   );
 }
