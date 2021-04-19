@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import io from "socket.io-client";
 import { MakeTable } from "./MakeTable.js";
@@ -6,8 +6,10 @@ import { StateTable } from "./StatesTable.js";
 import { SortInit } from "./Sort.js";
 import PropTypes from "prop-types";
 import "./TableStyle.css";
+import ReactDom from "react-dom";
 
 const socket = io();
+let currentUser;
 let countriesArr;
 export function Table(props) {
   const [Countries, setCountries] = useState([]);
@@ -113,7 +115,7 @@ export function Table(props) {
       console.log(act);
       SortTable("States Confirmed");
     });
-  }, [SortTable]);
+  }, []);
 
   switch (SortStat) {
     case "Countries":
@@ -151,9 +153,6 @@ export function Table(props) {
       break;
     case "States Active":
       templist = [...StatesActive];
-      break;
-    default:
-      templist = [0];
       break;
   }
   const newpos = SortInit(SortStat, MostLeast, templist);
