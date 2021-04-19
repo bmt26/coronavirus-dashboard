@@ -3,7 +3,7 @@ import "./TableStyle.css";
 
 export function MakeTable(props) {
   return (
-    <div>
+    <div class="center">
       {props.index === 0 ? (
       <div>
 

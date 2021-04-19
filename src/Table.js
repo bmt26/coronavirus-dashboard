@@ -166,7 +166,7 @@ useEffect(() => {
   	<div id="Covid19_Stats">
   		<div>
   		{ShowCountries === true ? (
-  			<table id="customers">
+  			<table class="center">
         	<tr>
         		<th>Coronavirus Stats</th>
         	</tr>
@@ -200,8 +200,8 @@ useEffect(() => {
     	
     	<div>
     		{ShowStates === true ? (
-    			<table id="customers">
-    			<button type="button" onClick={showtable}>Back</button>
+    			<table class="center">
+    			<button type="button" class="button" onClick={showtable}>Back</button>
         	<tr>
         		<th>{ClickedCountry}</th>
         	</tr>
