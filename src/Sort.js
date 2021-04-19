@@ -35,6 +35,9 @@ export function SortInit() {
         QuickSortMost(statlist, newpos, 0, statlist.length - 1);
       }
       break;
+    default:
+      newpos=[0];
+      break;
   }
   return newpos;
 }
