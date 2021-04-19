@@ -10,6 +10,7 @@ The User database is defined with the following parameters:
 
 from app import DB
 
+
 class UserData(DB.Model):
     """ Declare the User database with the necessary parameters """
     email = DB.Column(DB.String(100), primary_key=True)

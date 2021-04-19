@@ -49,11 +49,13 @@ SOCKETIO = SocketIO(APP,
                     json=json,
                     manage_session=False)
 
+
 @APP.route('/', defaults={"filename": "index.html"})
 @APP.route('/<path:filename>')
 def index(filename):
     """ Retrieve index.html and serve to the webpage using Flask """
     return send_from_directory('./build', filename)
+
 
 def add_user_to_db(data):
     """ Function to add a new player to the database """
@@ -64,7 +66,10 @@ def add_user_to_db(data):
     country = "None"
 
     # Model a new user
-    new_user = models.UserData(email=email, name=name, image=image, country=country)
+    new_user = models.UserData(email=email,
+                               name=name,
+                               image=image,
+                               country=country)
 
     # Add new user to database
     DB.session.add(new_user)
@@ -92,14 +97,15 @@ def add_user_to_db(data):
 
     return users
 
+
 @SOCKETIO.on('login')
 def on_login(data):
     """ Run function when a client emits the 'login' event to the server """
     print(data)
 
     # Check if logged in user exists in database. If not, add user
-    if DB.session.query(models.UserData).filter_by(
-            email=data['email']).first() is None:
+    if DB.session.query(
+            models.UserData).filter_by(email=data['email']).first() is None:
         print("Adding user to database!")
         add_user_to_db(data)
 
@@ -107,6 +113,7 @@ def on_login(data):
     TEMPEMAIL = ""
     TEMPEMAIL = data['email']
     print("TEMPEMAIL", TEMPEMAIL)
+
 
 @SOCKETIO.on('connect')
 def get_data():
@@ -132,15 +139,17 @@ def get_data():
     #socketio.emit('connect', {'countries' : COUNTRIES})
     #print("Countries: " + str(COUNTRIES))
 
-    SOCKETIO.emit('connect', {
-        'countries' : COUNTRIES,
-        'newconfirmed' : NEW_CONFIRMED,
-        'totalconfirmed' : TOTAL_CONFIRMED,
-        'newdeaths' : NEW_DEATHS,
-        'totaldeaths' : TOTAL_DEATHS,
-        'newrecovered' : NEW_RECOVERED,
-        'totalrecovered' : TOTAL_RECOVERED,
+    SOCKETIO.emit(
+        'connect', {
+            'countries': COUNTRIES,
+            'newconfirmed': NEW_CONFIRMED,
+            'totalconfirmed': TOTAL_CONFIRMED,
+            'newdeaths': NEW_DEATHS,
+            'totaldeaths': TOTAL_DEATHS,
+            'newrecovered': NEW_RECOVERED,
+            'totalrecovered': TOTAL_RECOVERED,
         })
+
 
 @SOCKETIO.on('getstate')
 def get_states(data):
@@ -165,13 +174,15 @@ def get_states(data):
             recovered.append(response[i]['Recovered'])
             active.append(response[i]['Active'])
 
-    SOCKETIO.emit('States', {
-        'State' : state,
-        'Confirmed' : confirmed,
-        'Deaths' : deaths,
-        'Recovered' : recovered,
-        'Active' : active,
+    SOCKETIO.emit(
+        'States', {
+            'State': state,
+            'Confirmed': confirmed,
+            'Deaths': deaths,
+            'Recovered': recovered,
+            'Active': active,
         })
+
 
 @SOCKETIO.on('newHomeCountry')
 def update_country(data):
@@ -179,8 +190,7 @@ def update_country(data):
     country = data['country']
     useremail = TEMPEMAIL
     print("This is the email", TEMPEMAIL)
-    user = DB.session.query(models.UserData).filter_by(
-        email=useremail).first()
+    user = DB.session.query(models.UserData).filter_by(email=useremail).first()
     print(user)
     user.country = country
     DB.session.commit()
@@ -188,6 +198,7 @@ def update_country(data):
     print(useremail + "New Home Country is: " + country)
 
     SOCKETIO.emit('new_country', data, broadcast=True, include_self=False)
+
 
 # Allow for the importing of the app in python shell
 if __name__ == "__main__":
