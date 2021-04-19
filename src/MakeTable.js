@@ -6,17 +6,7 @@ export function MakeTable(props) {
     <div>
       {props.index === 0 ? (
       <div>
-        <div>
-          <tr>
-            <th>Countries</th>
-        		<th>New Confirmed</th>
-        		<th>Total Confirmed</th>
-        		<th>New Deaths</th>
-        		<th>Total Deaths</th>
-        		<th>New Recovered</th>
-        		<th>Total Recovered</th>
-          </tr>
-        </div>
+
         <div onClick={() => props.GetStates(props.countries)}>
           <tr>
             <td>{props.countries}</td>
