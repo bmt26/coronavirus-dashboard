@@ -20,13 +20,13 @@ COR = CORS(APP, resources={r"/*": {"origins": "*"}})
 
 USERNAME = os.getenv('username')
 PASSWORD = os.getenv('password')
-COUNTRIES = []
-NEW_CONFIRMED = []
-TOTAL_CONFIRMED = []
-NEW_DEATHS = []
-TOTAL_DEATHS = []
-NEW_RECOVERED = []
-TOTAL_RECOVERED = []
+Countries = []
+NewConfirmed = []
+TotalConfirmed = []
+NewDeaths = []
+TotalDeaths = []
+NewRecovered = []
+TotalRecovered = []
 TEMPEMAIL = ""
 
 # Point SQLAlchemy to Heroku database
@@ -119,27 +119,27 @@ def get_data():
     #print(response)
 
     for i in enumerate(response):
-        if response[i]['Country'] not in COUNTRIES:
-            COUNTRIES.append(response[i]['Country'])
-            NEW_CONFIRMED.append(response[i]['NewConfirmed'])
-            TOTAL_CONFIRMED.append(response[i]['TotalConfirmed'])
-            NEW_DEATHS.append(response[i]['NewDeaths'])
-            TOTAL_DEATHS.append(response[i]['TotalDeaths'])
-            NEW_RECOVERED.append(response[i]['NewRecovered'])
-            TOTAL_RECOVERED.append(response[i]['TotalRecovered'])
+        if response[i]['Country'] not in Countries:
+            Countries.append(response[i]['Country'])
+            NewConfirmed.append(response[i]['NewConfirmed'])
+            TotalConfirmed.append(response[i]['TotalConfirmed'])
+            NewDeaths.append(response[i]['NewDeaths'])
+            TotalDeaths.append(response[i]['TotalDeaths'])
+            NewRecovered.append(response[i]['NewRecovered'])
+            TotalRecovered.append(response[i]['TotalRecovered'])
 
     print("sending the data")
-    #socketio.emit('connect', {'countries' : COUNTRIES})
-    #print("Countries: " + str(COUNTRIES))
+    #socketio.emit('connect', {'countries' : Countries})
+    #print("Countries: " + str(Countries))
 
     SOCKETIO.emit('connect', {
-        'countries' : COUNTRIES,
-        'newconfirmed' : NEW_CONFIRMED,
-        'totalconfirmed' : TOTAL_CONFIRMED,
-        'newdeaths' : NEW_DEATHS,
-        'totaldeaths' : TOTAL_DEATHS,
-        'newrecovered' : NEW_RECOVERED,
-        'totalrecovered' : TOTAL_RECOVERED,
+        'countries' : Countries,
+        'newconfirmed' : NewConfirmed,
+        'totalconfirmed' : TotalConfirmed,
+        'newdeaths' : NewDeaths,
+        'totaldeaths' : TotalDeaths,
+        'newrecovered' : NewRecovered,
+        'totalrecovered' : TotalRecovered,
         })
 
 @SOCKETIO.on('getstate')
