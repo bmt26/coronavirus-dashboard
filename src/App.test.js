@@ -8,6 +8,6 @@ const getLoginButton = () => {
 
 test("Ensure that the Login button appears upon user landing", () => {
   const result = render(<App />);
-  const loginButton = getLoginButton(result);
+  const loginButton = getLoginButton();
   expect(loginButton).toBeInTheDocument();
 });
