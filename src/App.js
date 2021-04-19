@@ -1,6 +1,7 @@
 import io from 'socket.io-client';
 import { React, useState, useEffect } from 'react';
 import Authentication from './Authentication';
+import { Table } from "./Table.js";
 
 import './App.css';
 
@@ -13,8 +14,8 @@ function App() {
   return (
     <div className="App">
       <Authentication socket={ socket } />
+      <Table />
     </div>
   );
 }
-
 export default App;

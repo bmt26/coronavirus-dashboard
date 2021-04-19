@@ -1,6 +1,7 @@
 import React from 'react';
 import { GoogleLogin } from 'react-google-login';
 
+
 // Get the Google API clientId environment variable
 const clientId = process.env.REACT_APP_CLIENT_ID;
 
