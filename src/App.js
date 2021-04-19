@@ -13,8 +13,8 @@ function App() {
   
   return (
     <div className="App">
-        <Authentication socket={ socket } />
-        <Table />
+      <Authentication socket={ socket } />
+      <Table />
     </div>
   );
 }
