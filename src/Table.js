@@ -10,6 +10,7 @@ import ReactDom from "react-dom";
 
 const socket = io();
 let currentUser;
+let countriesArr;
 export function Table(props) {
   const [Countries, setCountries] = useState([]);
   const [NewConfirmed, setNewConfirmed] = useState([]);
@@ -69,6 +70,9 @@ useEffect(() => {
 			console.log("getting data");
 			console.log(data);
 			console.log(data.countries);
+			
+			countriesArr = data.countries;
+			getCountries();
 			
 			const count = [...data.countries];
 			const newconf = [...data.newconfirmed];
@@ -231,3 +235,8 @@ Table.propTypes = {
   sortstat: PropTypes.node.isRequired,
   mostleast: PropTypes.node.isRequired,
 };
+
+export function getCountries(){
+	// Function to export the list of countries for dropdown list.
+	return countriesArr;
+}

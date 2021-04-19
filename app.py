@@ -81,6 +81,11 @@ def on_login(data):
         email=data['email']).first() is None:
             print("Adding user to database!")
             add_user_to_db(data)
+    
+    global TEMPEMAIL
+    TEMPEMAIL = ""
+    TEMPEMAIL = data['email']
+    print("TEMPEMAIL", TEMPEMAIL)
 
 @SOCKETIO.on('connect')
 def GetData():
@@ -144,6 +149,22 @@ def GetStates(data):
                             'Recovered' : Recovered,
                             'Active' : Active,
                             })
+
+@SOCKETIO.on('newHomeCountry')
+def updateCountry(data):
+    # Function to modify user home country
+    country = data['country']
+    useremail = TEMPEMAIL
+    print("This is the email", TEMPEMAIL)
+    user = DB.session.query(models.UserData).filter_by(
+        email=useremail).first()
+    print(user)
+    user.country = country
+    DB.session.commit()
+    
+    print(useremail + "New Home Country is: " + country)
+    
+    SOCKETIO.emit('new_country', data, broadcast=True, include_self=False)
     
 # Allow for the importing of the app in python shell
 if __name__ == "__main__":

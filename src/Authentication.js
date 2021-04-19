@@ -6,6 +6,7 @@ import UserProfile from './UserProfile';
 import './Authentication.css';
 import './UserProfile.css';
 import './Logout.css';
+import SetCountry from './SetCountry';
 
 // Function to handle user Authentication
 function Authentication(props) {
@@ -24,12 +25,13 @@ function Authentication(props) {
             </div>
         );
     }
-    // Display the Logout component and UserProfile when the user has logged in
+    // Display the Logout component and UserProfile and SetCountry dropdown and set button when the user has logged in
     return (
         <div>
             <div className="auth-div">
                 <UserProfile userProfile={ userProfile } />
                 <Logout loggedIn={ loggedIn } setLoggedIn={ setLoggedIn } />
+                <SetCountry />
             </div>
         </div>
     );
