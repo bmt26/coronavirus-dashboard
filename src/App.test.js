@@ -1,6 +1,6 @@
-import { render, screen, fireEvent } from '@testing-library/react';
-import { ReactDOM } from 'react-dom';
-import App from './App';
+import { render, screen, fireEvent } from "@testing-library/react";
+import { ReactDOM } from "react-dom";
+import App from "./App";
 
 const getLoginButton = () => {
   return screen.getByText("Login");
