@@ -6,6 +6,7 @@ The User database is defined with the following parameters:
     user's image as type String,
     user's home country as type String,
 """
+# pylint: disable=E1101,C0413,W1508,R0903,W0603
 
 from app import DB
 
