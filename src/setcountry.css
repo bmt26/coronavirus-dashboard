@@ -1,9 +1,10 @@
 .dropdown {
   text-align: right;
   position: absolute;
-  top: 25px;
-  right: 285px;
+  top: 27px;
+  right: 310px;
   font-size: 65px;
+  font-size: 16px;
 }
 
 .set{
