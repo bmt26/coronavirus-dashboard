@@ -1,15 +1,19 @@
 import React from 'react';
 import './setcountry.css';
 import { getCountries } from './Table';
+import io from 'socket.io-client';
+
+const socket = io();
 
 function SetCountry() {
     
     var countriesArr = getCountries();
     
     function setHomeCountry(){
-        var selectedValue = document.getElementById("countries").value;
-        if(selectedValue !== 'Countries'){
-            console.log(selectedValue);
+        var selectedCountry = document.getElementById("countries").value;
+        if(selectedCountry !== 'Countries'){
+            console.log(selectedCountry);
+            socket.emit('newHomeCountry', { country : selectedCountry });
         }
     }
     
