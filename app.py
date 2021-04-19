@@ -27,6 +27,7 @@ NewDeaths = []
 TotalDeaths = []
 NewRecovered = []
 TotalRecovered = []
+TEMPEMAIL = ""
 
 # Point SQLAlchemy to Heroku database
 APP.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
@@ -108,8 +109,9 @@ def on_login(data):
     print("TEMPEMAIL", TEMPEMAIL)
 
 @SOCKETIO.on('connect')
-def GetData():
-#URL to get all the data for countries
+def get_data():
+    """ Retrieves Covid-19 Statistics from the API """
+    #URL to get all the data for countries
     URL = 'https://api.covid19api.com/summary'
     req = requests.get(URL, auth=HTTPBasicAuth(USERNAME, PASSWORD))
     response = req.json()['Countries']
@@ -141,7 +143,8 @@ def GetData():
         })
 
 @SOCKETIO.on('getstate')
-def GetStates(data):
+def get_states(data):
+    """ Returns Covid-19 State Statistics when requested """
     State = []
     Confirmed = []
     Deaths = []
@@ -171,8 +174,8 @@ def GetStates(data):
         })
 
 @SOCKETIO.on('newHomeCountry')
-def updateCountry(data):
-    # Function to modify user home country
+def update_country(data):
+    """ Function to modify user home country """
     country = data['country']
     useremail = TEMPEMAIL
     print("This is the email", TEMPEMAIL)
