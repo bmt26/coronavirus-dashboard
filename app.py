@@ -55,7 +55,7 @@ def index(filename):
     return send_from_directory('./build', filename)
 
 def add_user_to_db(data):
-    """ Function to add a new player to the database """
+    """ Function to add a new user to the database """
     # Prepare variables to enter into database
     email = data['email']
     name = data['name']
@@ -90,6 +90,28 @@ def add_user_to_db(data):
         users.append(user_dict)
 
     return users
+
+def modify_country_in_db(data):
+    """ Function to modify a users country in the database """
+    # Query the database for desired user using email
+    all_users = models.UserData.query.all()
+
+    # Loop through all users and find the desired user by email
+    for user in all_users:
+        # If user's email is found, change the country
+        if data['email'] == user.email:
+            user.country = data['country']
+            break
+
+    # user = DB.session.query(models.UserData).filter_by(email=user_email)
+
+    # Create dictionary
+    user_dict = {'email': data['email'], 'country': data['country']}
+
+    # Commit the changes to the database
+    DB.session.commit()
+
+    return user_dict
 
 @SOCKETIO.on('login')
 def on_login(data):
@@ -182,7 +204,7 @@ def updateCountry(data):
     user.country = country
     DB.session.commit()
     
-    print(useremail + "New Home Country is: " + country)
+    # print(useremail + "New Home Country is: " + country)
     
     SOCKETIO.emit('new_country', data, broadcast=True, include_self=False)
     
