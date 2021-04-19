@@ -20,13 +20,13 @@ COR = CORS(APP, resources={r"/*": {"origins": "*"}})
 
 USERNAME = os.getenv('username')
 PASSWORD = os.getenv('password')
-Countries = []
-NewConfirmed = []
-TotalConfirmed = []
-NewDeaths = []
-TotalDeaths = []
-NewRecovered = []
-TotalRecovered = []
+COUNTRIES = []
+NEW_CONFIRMED = []
+TOTAL_CONFIRMED = []
+NEW_DEATHS = []
+TOTAL_DEATHS = []
+NEW_RECOVERED = []
+TOTAL_RECOVERED = []
 TEMPEMAIL = ""
 
 # Point SQLAlchemy to Heroku database
@@ -112,65 +112,65 @@ def on_login(data):
 def get_data():
     """ Retrieves Covid-19 Statistics from the API """
     #URL to get all the data for countries
-    URL = 'https://api.covid19api.com/summary'
-    req = requests.get(URL, auth=HTTPBasicAuth(USERNAME, PASSWORD))
+    url = 'https://api.covid19api.com/summary'
+    req = requests.get(url, auth=HTTPBasicAuth(USERNAME, PASSWORD))
     response = req.json()['Countries']
 
     #print(response)
 
-    for i in range(len(response)):
-        if response[i]['Country'] not in Countries:
-            Countries.append(response[i]['Country'])
-            NewConfirmed.append(response[i]['NewConfirmed'])
-            TotalConfirmed.append(response[i]['TotalConfirmed'])
-            NewDeaths.append(response[i]['NewDeaths'])
-            TotalDeaths.append(response[i]['TotalDeaths'])
-            NewRecovered.append(response[i]['NewRecovered'])
-            TotalRecovered.append(response[i]['TotalRecovered'])
+    for i in enumerate(response):
+        if response[i]['Country'] not in COUNTRIES:
+            COUNTRIES.append(response[i]['Country'])
+            NEW_CONFIRMED.append(response[i]['NewConfirmed'])
+            TOTAL_CONFIRMED.append(response[i]['TotalConfirmed'])
+            NEW_DEATHS.append(response[i]['NewDeaths'])
+            TOTAL_DEATHS.append(response[i]['TotalDeaths'])
+            NEW_RECOVERED.append(response[i]['NewRecovered'])
+            TOTAL_RECOVERED.append(response[i]['TotalRecovered'])
 
     print("sending the data")
-    #socketio.emit('connect', {'countries' : Countries})
-    #print("Countries: " + str(Countries))
+    #socketio.emit('connect', {'countries' : COUNTRIES})
+    #print("Countries: " + str(COUNTRIES))
 
     SOCKETIO.emit('connect', {
-        'countries' : Countries,
-        'newconfirmed' : NewConfirmed,
-        'totalconfirmed' : TotalConfirmed,
-        'newdeaths' : NewDeaths,
-        'totaldeaths' : TotalDeaths,
-        'newrecovered' : NewRecovered,
-        'totalrecovered' : TotalRecovered,
+        'countries' : COUNTRIES,
+        'newconfirmed' : NEW_CONFIRMED,
+        'totalconfirmed' : TOTAL_CONFIRMED,
+        'newdeaths' : NEW_DEATHS,
+        'totaldeaths' : TOTAL_DEATHS,
+        'newrecovered' : NEW_RECOVERED,
+        'totalrecovered' : TOTAL_RECOVERED,
         })
 
 @SOCKETIO.on('getstate')
 def get_states(data):
     """ Returns Covid-19 State Statistics when requested """
-    State = []
-    Confirmed = []
-    Deaths = []
-    Recovered = []
-    Active = []
+    state = []
+    confirmed = []
+    deaths = []
+    recovered = []
+    active = []
     country = data['country']
     print(country)
-    URL = "https://api.covid19api.com/live/country/" + country + "/status/confirmed"
-    req = requests.get(URL, auth=HTTPBasicAuth(USERNAME, PASSWORD))
+    url = "https://api.covid19api.com/live/country/" + country + "/status/confirmed"
+    req = requests.get(url, auth=HTTPBasicAuth(USERNAME, PASSWORD))
     #print(req.json())
     response = req.json()
 
-    for i in range(len(response)):
-        if response[i]['Province'] not in State:
-            State.append(response[i]['Province'])
-            Confirmed.append(response[i]['Confirmed'])
-            Deaths.append(response[i]['Deaths'])
-            Recovered.append(response[i]['Recovered'])
-            Active.append(response[i]['Active'])
+    for i in enumerate(response):
+        if response[i]['Province'] not in state:
+            state.append(response[i]['Province'])
+            confirmed.append(response[i]['Confirmed'])
+            deaths.append(response[i]['Deaths'])
+            recovered.append(response[i]['Recovered'])
+            active.append(response[i]['Active'])
 
     SOCKETIO.emit('States', {
-        'State' : State,
-        'Confirmed' : Confirmed,
-        'Deaths' : Deaths,
-        'Recovered' : Recovered,
-        'Active' : Active,
+        'State' : state,
+        'Confirmed' : confirmed,
+        'Deaths' : deaths,
+        'Recovered' : recovered,
+        'Active' : active,
         })
 
 @SOCKETIO.on('newHomeCountry')
