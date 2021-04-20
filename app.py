@@ -113,6 +113,41 @@ def modify_country_in_db(data):
 
     return user_dict
 
+def get_state_statistics(country):
+    """ Function to retrieve the statistics for a particular country """
+    state = []
+    confirmed = []
+    deaths = []
+    recovered = []
+    active = []
+    url = "https://api.covid19api.com/live/country/" + country + "/status/confirmed"
+    req = requests.get(url, auth=HTTPBasicAuth(USERNAME, PASSWORD))
+    response = req.json()
+    length = len(response)
+    for i in range(length):
+        if response[i]['Province'] not in state:
+            state.append(response[i]['Province'])
+            confirmed.append(response[i]['Confirmed'])
+            deaths.append(response[i]['Deaths'])
+            recovered.append(response[i]['Recovered'])
+            active.append(response[i]['Active'])
+
+    return state
+
+def get_country_statistics():
+    """ Function to retrieve the statistics per country """
+    #URL to get all the data for countries
+    url = 'https://api.covid19api.com/summary'
+    req = requests.get(url, auth=HTTPBasicAuth(USERNAME, PASSWORD))
+    #print(str(req.json()))
+    response = req.json()['Countries']
+    lenght = len(response)
+    for i in range(lenght):
+        if response[i]['Country'] not in COUNTRIES:
+            COUNTRIES.append(response[i]['Country'])
+
+    return COUNTRIES
+
 @SOCKETIO.on('login')
 def on_login(data):
     """ Run function when a client emits the 'login' event to the server """
