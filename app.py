@@ -1,6 +1,7 @@
 """
 Main driver file for the server.
 """
+#pylint: disable=E1101, C0413, W0603, 1508
 
 import os
 from flask import Flask, send_from_directory, json, session
