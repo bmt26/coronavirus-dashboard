@@ -6,8 +6,10 @@ The User database is defined with the following parameters:
     user's image as type String,
     user's home country as type String,
 """
+#pylint: disable=E1101, R0903
 
 from app import DB
+
 
 class UserData(DB.Model):
     """ Declare the User database with the necessary parameters """
