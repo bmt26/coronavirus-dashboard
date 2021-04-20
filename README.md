@@ -1,3 +1,4 @@
+Sprint 1 Heroku Link: https://secret-taiga-47016.herokuapp.com/
 # CS490 Project 3 - Coronavirus Dashboard
 This project allows for a user to connect and view the Coronavirus statistics of all countries. Upon clicking the name of a country in the statistics table, a user can view the Coronavirus statistics of the states/territories in that country. Upon user login, a user can set their "Home" country to personalize their Coronavirus statistics dashboard.
 
