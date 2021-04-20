@@ -3,7 +3,7 @@ import "./TableStyle.css";
 
 export function StateTable(props) {
   return (
-    <div>
+    <div class="center">
       {props.index === 0 ? (
       <div>
         <div>
