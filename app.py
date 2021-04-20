@@ -48,11 +48,13 @@ SOCKETIO = SocketIO(APP,
                     json=json,
                     manage_session=False)
 
+
 @APP.route('/', defaults={"filename": "index.html"})
 @APP.route('/<path:filename>')
 def index(filename):
     """ Retrieve index.html and serve to the webpage using Flask """
     return send_from_directory('./build', filename)
+
 
 def add_user_to_db(data):
     """ Function to add a new user to the database """
@@ -63,11 +65,14 @@ def add_user_to_db(data):
     country = "None"
 
     # Model a new user
-    new_user = models.UserData(email=email, name=name, image=image, country=country)
+    new_user = models.UserData(email=email,
+                               name=name,
+                               image=image,
+                               country=country)
 
     # Add new user to database
     DB.session.add(new_user)
-    
+
     # Commit database session
     DB.session.commit()
 
@@ -91,6 +96,7 @@ def add_user_to_db(data):
 
     return users
 
+
 def modify_country_in_db(data):
     """ Function to modify a users country in the database """
     # Query the database for desired user using email
@@ -113,31 +119,33 @@ def modify_country_in_db(data):
 
     return user_dict
 
+
 @SOCKETIO.on('login')
 def on_login(data):
     """ Run function when a client emits the 'login' event to the server """
     print(data)
 
     # Check if logged in user exists in database. If not, add user
-    if DB.session.query(models.UserData).filter_by(
-        email=data['email']).first() is None:
-            print("Adding user to database!")
-            add_user_to_db(data)
-    
+    if DB.session.query(
+            models.UserData).filter_by(email=data['email']).first() is None:
+        print("Adding user to database!")
+        add_user_to_db(data)
+
     global TEMPEMAIL
     TEMPEMAIL = ""
     TEMPEMAIL = data['email']
     print("TEMPEMAIL", TEMPEMAIL)
 
+
 @SOCKETIO.on('connect')
 def GetData():
-    #URL to get all the data for countries 
+    #URL to get all the data for countries
     URL = 'https://api.covid19api.com/summary'
     req = requests.get(URL, auth=HTTPBasicAuth(username, password))
     response = req.json()['Countries']
-    
+
     #print(response)
-    
+
     for i in range(len(response)):
         if response[i]['Country'] not in Countries:
             Countries.append(response[i]['Country'])
@@ -147,20 +155,22 @@ def GetData():
             TotalDeaths.append(response[i]['TotalDeaths'])
             NewRecovered.append(response[i]['NewRecovered'])
             TotalRecovered.append(response[i]['TotalRecovered'])
-    
+
     print("sending the data")
     #socketio.emit('connect', {'countries' : Countries})
     #print("Countries: " + str(Countries))
-    
-    SOCKETIO.emit('connect', {
-                            'countries' : Countries, 
-                            'newconfirmed' : NewConfirmed, 
-                            'totalconfirmed' : TotalConfirmed,
-                            'newdeaths' : NewDeaths,
-                            'totaldeaths' : TotalDeaths,
-                            'newrecovered' : NewRecovered,
-                            'totalrecovered' : TotalRecovered,
-                            })
+
+    SOCKETIO.emit(
+        'connect', {
+            'countries': Countries,
+            'newconfirmed': NewConfirmed,
+            'totalconfirmed': TotalConfirmed,
+            'newdeaths': NewDeaths,
+            'totaldeaths': TotalDeaths,
+            'newrecovered': NewRecovered,
+            'totalrecovered': TotalRecovered,
+        })
+
 
 @SOCKETIO.on('getstate')
 def GetStates(data):
@@ -175,7 +185,7 @@ def GetStates(data):
     req = requests.get(URL, auth=HTTPBasicAuth(username, password))
     #print(req.json())
     response = req.json()
-    
+
     for i in range(len(response)):
         if response[i]['Province'] not in State:
             State.append(response[i]['Province'])
@@ -183,14 +193,16 @@ def GetStates(data):
             Deaths.append(response[i]['Deaths'])
             Recovered.append(response[i]['Recovered'])
             Active.append(response[i]['Active'])
-    
-    SOCKETIO.emit('States', {
-                            'State' : State,
-                            'Confirmed' : Confirmed,
-                            'Deaths' : Deaths,
-                            'Recovered' : Recovered,
-                            'Active' : Active,
-                            })
+
+    SOCKETIO.emit(
+        'States', {
+            'State': State,
+            'Confirmed': Confirmed,
+            'Deaths': Deaths,
+            'Recovered': Recovered,
+            'Active': Active,
+        })
+
 
 @SOCKETIO.on('newHomeCountry')
 def updateCountry(data):
@@ -198,16 +210,16 @@ def updateCountry(data):
     country = data['country']
     useremail = TEMPEMAIL
     print("This is the email", TEMPEMAIL)
-    user = DB.session.query(models.UserData).filter_by(
-        email=useremail).first()
+    user = DB.session.query(models.UserData).filter_by(email=useremail).first()
     print(user)
     user.country = country
     DB.session.commit()
-    
+
     # print(useremail + "New Home Country is: " + country)
-    
+
     SOCKETIO.emit('new_country', data, broadcast=True, include_self=False)
-    
+
+
 # Allow for the importing of the app in python shell
 if __name__ == "__main__":
     # Call SOCKETIO.run with app arg
