@@ -3,14 +3,14 @@ import { ReactDOM } from 'react-dom';
 import App from './App';
 
 const getLoginButton = () => {
-  return screen.getByText("Login");
+  return screen.getByText('Login');
 };
 
 const getCoronavirusTitle = () => {
   return screen.getByText("Coronavirus Stats");
 };
 
-test("Ensure that the Login button appears upon user landing", () => {
+test('Ensure that the Login button appears upon user landing', () => {
   const result = render(<App />);
   const loginButton = getLoginButton();
   expect(loginButton).toBeInTheDocument();
