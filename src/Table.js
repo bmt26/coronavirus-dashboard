@@ -113,7 +113,7 @@ export function Table(props) {
       console.log(act);
       SortTable('States Confirmed');
     });
-  }, []);
+  }, []); //eslint-disable-line
 
   switch (SortStat) {
     case 'Countries':
