@@ -166,6 +166,7 @@ export function Table(props) {
             </tr>
             <div>
               <tr>
+                <th></th>
                 <th onClick={() => SortTable('Countries')}>
                   Countries{SortStat === 'Countries' ? (MostLeast ? '▲' : '▼') : '◆'}
                 </th>

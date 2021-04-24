@@ -6,28 +6,30 @@ export function MakeTable(props) {
     <div class="center">
       {props.index === 0 ? (
         <div>
-          <div onClick={() => props.GetStates(props.countries)}>
+          <div>
             <tr>
-              <td>{props.countries}</td>
-              <td>{props.newconfirmed}</td>
-              <td>{props.totalconfirmed}</td>
-              <td>{props.newdeaths}</td>
-              <td>{props.totaldeaths}</td>
-              <td>{props.newrecovered}</td>
-              <td>{props.totalrecovered}</td>
+              <td><button>Compare</button></td>
+              <td onClick={() => props.GetStates(props.countries)}>{props.countries}</td>
+              <td onClick={() => props.GetStates(props.countries)}>{props.newconfirmed}</td>
+              <td onClick={() => props.GetStates(props.countries)}>{props.totalconfirmed}</td>
+              <td onClick={() => props.GetStates(props.countries)}>{props.newdeaths}</td>
+              <td onClick={() => props.GetStates(props.countries)}>{props.totaldeaths}</td>
+              <td onClick={() => props.GetStates(props.countries)}>{props.newrecovered}</td>
+              <td onClick={() => props.GetStates(props.countries)}>{props.totalrecovered}</td>
             </tr>
           </div>
         </div>
       ) : (
-        <div onClick={() => props.GetStates(props.countries)}>
+        <div>
           <tr>
-            <td>{props.countries}</td>
-            <td>{props.newconfirmed}</td>
-            <td>{props.totalconfirmed}</td>
-            <td>{props.newdeaths}</td>
-            <td>{props.totaldeaths}</td>
-            <td>{props.newrecovered}</td>
-            <td>{props.totalrecovered}</td>
+            <td><button>Compare</button></td>
+            <td onClick={() => props.GetStates(props.countries)}>{props.countries}</td>
+            <td onClick={() => props.GetStates(props.countries)}>{props.newconfirmed}</td>
+            <td onClick={() => props.GetStates(props.countries)}>{props.totalconfirmed}</td>
+            <td onClick={() => props.GetStates(props.countries)}>{props.newdeaths}</td>
+            <td onClick={() => props.GetStates(props.countries)}>{props.totaldeaths}</td>
+            <td onClick={() => props.GetStates(props.countries)}>{props.newrecovered}</td>
+            <td onClick={() => props.GetStates(props.countries)}>{props.totalrecovered}</td>
           </tr>
         </div>
       )}
