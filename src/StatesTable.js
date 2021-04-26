@@ -17,6 +17,8 @@ export function StateTable(props) {
           </div>
           <div>
             <tr>
+              <td><button onClick={() => props.setArea1(["state",props.states,props.confirmed,props.death,props.recovered,props.active])}>Compare #1</button>
+              <button onClick={() => props.setArea2(["state",props.states,props.confirmed,props.death,props.recovered,props.active])}>Compare #2</button></td>
               <td>{props.states}</td>
               <td>{props.confirmed}</td>
               <td>{props.death}</td>
@@ -28,6 +30,8 @@ export function StateTable(props) {
       ) : (
         <div>
           <tr>
+            <td><button onClick={() => props.setArea1(["state",props.states,props.confirmed,props.death,props.recovered,props.active])}>Compare #1</button>
+            <button onClick={() => props.setArea2(["state",props.states,props.confirmed,props.death,props.recovered,props.active])}>Compare #2</button></td>
             <td>{props.states}</td>
             <td>{props.confirmed}</td>
             <td>{props.death}</td>

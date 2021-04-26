@@ -8,7 +8,8 @@ export function MakeTable(props) {
         <div>
           <div>
             <tr>
-              <td><button>Compare</button></td>
+              <td><button onClick={() => props.setArea1(["country",props.countries,props.newconfirmed,props.totalconfirmed,props.newdeaths,props.totaldeaths,props.newrecovered,props.totalrecovered])}>Compare #1</button>
+              <button onClick={() => props.setArea2(["country",props.countries,props.newconfirmed,props.totalconfirmed,props.newdeaths,props.totaldeaths,props.newrecovered,props.totalrecovered])}>Compare #2</button></td>
               <td onClick={() => props.GetStates(props.countries)}>{props.countries}</td>
               <td onClick={() => props.GetStates(props.countries)}>{props.newconfirmed}</td>
               <td onClick={() => props.GetStates(props.countries)}>{props.totalconfirmed}</td>
@@ -22,7 +23,8 @@ export function MakeTable(props) {
       ) : (
         <div>
           <tr>
-            <td><button>Compare</button></td>
+            <td><button onClick={() => props.setArea1(["country",props.countries,props.newconfirmed,props.totalconfirmed,props.newdeaths,props.totaldeaths,props.newrecovered,props.totalrecovered])}>Compare #1</button>
+            <button onClick={() => props.setArea2(["country",props.countries,props.newconfirmed,props.totalconfirmed,props.newdeaths,props.totaldeaths,props.newrecovered,props.totalrecovered])}>Compare #2</button></td>
             <td onClick={() => props.GetStates(props.countries)}>{props.countries}</td>
             <td onClick={() => props.GetStates(props.countries)}>{props.newconfirmed}</td>
             <td onClick={() => props.GetStates(props.countries)}>{props.totalconfirmed}</td>

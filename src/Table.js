@@ -30,6 +30,8 @@ export function Table(props) {
 
   const [MostLeast, setMostLeast] = useState([]);
   const [SortStat, setSortStat] = useState([]);
+  const setArea1 = props.setArea1;
+  const setArea2 = props.setArea2;
   var templist = [];
 
   function GetStates(country) {
@@ -201,6 +203,8 @@ export function Table(props) {
                 totalrecovered={TotalRecovered[pos]}
                 index={index}
                 GetStates={GetStates}
+                setArea1={setArea1}
+                setArea2={setArea2}
               />
             ))}
           </table>
@@ -218,6 +222,7 @@ export function Table(props) {
             </tr>
             <div>
               <tr>
+                <th></th>
                 <th onClick={() => SortTable('States')}>
                   States{SortStat === 'States' ? (MostLeast ? '▲' : '▼') : '◆'}
                 </th>
@@ -242,6 +247,8 @@ export function Table(props) {
                 death={StateDeaths[pos]}
                 recovered={StatesRecovered[pos]}
                 active={StatesActive[pos]}
+                setArea1={setArea1}
+                setArea2={setArea2}
               />
             ))}
           </table>
