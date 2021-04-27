@@ -168,7 +168,6 @@ export function Table(props) {
             </tr>
             <div>
               <tr>
-                <th></th>
                 <th onClick={() => SortTable('Countries')}>
                   Countries{SortStat === 'Countries' ? (MostLeast ? '▲' : '▼') : '◆'}
                 </th>
@@ -190,6 +189,7 @@ export function Table(props) {
                 <th onClick={() => SortTable('Total Recovered')}>
                   Total Recovered{SortStat === 'Total Recovered' ? (MostLeast ? '▼' : '▲') : '◆'}
                 </th>
+                <th></th>
               </tr>
             </div>
             {newpos.map((pos, index) => (
@@ -222,7 +222,6 @@ export function Table(props) {
             </tr>
             <div>
               <tr>
-                <th></th>
                 <th onClick={() => SortTable('States')}>
                   States{SortStat === 'States' ? (MostLeast ? '▲' : '▼') : '◆'}
                 </th>
@@ -238,6 +237,7 @@ export function Table(props) {
                 <th onClick={() => SortTable('States Active')}>
                   Current Active{SortStat === 'States Active' ? (MostLeast ? '▼' : '▲') : '◆'}
                 </th>
+                <th></th>
               </tr>
             </div>
             {newpos.map((pos, index) => (

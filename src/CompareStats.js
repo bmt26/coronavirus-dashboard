@@ -12,36 +12,36 @@ export function CompareStats(props) {
                     </tr>
                     <tr>
                         <th>Country</th>
-                        <td>{Area[1]}</td>
-                        <td>{Area[9]}</td>
+                        <th>{Area[1]}</th>
+                        <th>{Area[9]}</th>
                     </tr>
                     <tr>
-                        <th>New Confirmed</th>
+                        <td>New Confirmed</td>
                         <td>{Area[2]}</td>
                         <td>{Area[10]}</td>
                     </tr>
                     <tr>
-                        <th>Total Confirmed</th>
+                        <td>Total Confirmed</td>
                         <td>{Area[3]}</td>
                         <td>{Area[11]}</td>
                     </tr>
                     <tr>
-                        <th>New Deaths</th>
+                        <td>New Deaths</td>
                         <td>{Area[4]}</td>
                         <td>{Area[12]}</td>
                     </tr>
                     <tr>
-                        <th>Total Deaths</th>
+                        <td>Total Deaths</td>
                         <td>{Area[5]}</td>
                         <td>{Area[13]}</td>
                     </tr>
                     <tr>
-                        <th>New Recovered</th>
+                        <td>New Recovered</td>
                         <td>{Area[6]}</td>
                         <td>{Area[14]}</td>
                     </tr>
                     <tr>
-                        <th>Total Recovered</th>
+                        <td>Total Recovered</td>
                         <td>{Area[7]}</td>
                         <td>{Area[15]}</td>
                     </tr>

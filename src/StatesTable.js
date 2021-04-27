@@ -29,28 +29,29 @@ export function StateTable(props) {
               <th>Deaths</th>
               <th>Recovered</th>
               <th>Active Cases</th>
+              <th></th>
             </tr>
           </div>
           <div>
             <tr>
-              <td><button onClick={() => PushData()}>Compare #1</button></td>
               <td>{props.states}</td>
               <td>{props.confirmed}</td>
               <td>{props.death}</td>
               <td>{props.recovered}</td>
               <td>{props.active}</td>
+              <td><button onClick={() => PushData()}>Compare</button></td>
             </tr>
           </div>
         </div>
       ) : (
         <div>
           <tr>
-            <td><button onClick={() => PushData()}>Compare #1</button></td>
             <td>{props.states}</td>
             <td>{props.confirmed}</td>
             <td>{props.death}</td>
             <td>{props.recovered}</td>
             <td>{props.active}</td>
+            <td><button onClick={() => PushData()}>Compare</button></td>
           </tr>
         </div>
       )}

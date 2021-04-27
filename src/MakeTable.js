@@ -24,7 +24,6 @@ export function MakeTable(props) {
         <div>
           <div>
             <tr>
-              <td><button onClick={() => PushData()}>Compare #1</button></td>
               <td onClick={() => props.GetStates(props.countries)}>{props.countries}</td>
               <td onClick={() => props.GetStates(props.countries)}>{props.newconfirmed}</td>
               <td onClick={() => props.GetStates(props.countries)}>{props.totalconfirmed}</td>
@@ -32,13 +31,13 @@ export function MakeTable(props) {
               <td onClick={() => props.GetStates(props.countries)}>{props.totaldeaths}</td>
               <td onClick={() => props.GetStates(props.countries)}>{props.newrecovered}</td>
               <td onClick={() => props.GetStates(props.countries)}>{props.totalrecovered}</td>
+              <td><button onClick={() => PushData()}>Compare</button></td>
             </tr>
           </div>
         </div>
       ) : (
         <div>
           <tr>
-            <td><button onClick={() => PushData()}>Compare #1</button></td>
             <td onClick={() => props.GetStates(props.countries)}>{props.countries}</td>
             <td onClick={() => props.GetStates(props.countries)}>{props.newconfirmed}</td>
             <td onClick={() => props.GetStates(props.countries)}>{props.totalconfirmed}</td>
@@ -46,6 +45,7 @@ export function MakeTable(props) {
             <td onClick={() => props.GetStates(props.countries)}>{props.totaldeaths}</td>
             <td onClick={() => props.GetStates(props.countries)}>{props.newrecovered}</td>
             <td onClick={() => props.GetStates(props.countries)}>{props.totalrecovered}</td>
+            <td><button onClick={() => PushData()}>Compare</button></td>
           </tr>
         </div>
       )}
