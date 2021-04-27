@@ -214,6 +214,7 @@ export function Table(props) {
       <div>
         {ShowStates === true ? (
           <table class="center">
+            <CompareStats Area={Area} setArea={setArea} />
             <tr>
               <th colspan="6">{ClickedCountry}</th>
             </tr>
