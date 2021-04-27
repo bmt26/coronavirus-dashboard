@@ -11,13 +11,12 @@ const socket = io();
 
 // Main driver function
 function App() {
-  const [Area1, setArea1] = useState([]);
-  const [Area2, setArea2] = useState([]);
+  const [Area, setArea] = useState([]);
   return (
     <div className="App">
       <Authentication socket={socket} />
-      <CompareStats Area1={Area1} Area2={Area2} />
-      <Table setArea1={setArea1} setArea2={setArea2} />
+      <CompareStats Area={Area}/>
+      <Table Area = {Area} setArea={setArea}/>
     </div>
   );
 }

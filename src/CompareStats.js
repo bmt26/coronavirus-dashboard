@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import './TableStyle.css';
 export function CompareStats(props) {
-    const Area1 = props.Area1;
-    const Area2 = props.Area2;
+    const Area = props.Area;
     
-    if ( (Area1[0] === "country" && Area2[0] !== "state") || (Area2[0] === "country" && Area1[0] !== "state" ) ) {
+    if ( (Area[0] === "country" && Area[8] !== "state") || (Area[8] === "country" && Area[0] !== "state" ) ) {
         return (
             <div> 
                 <table class="center">
@@ -13,44 +12,44 @@ export function CompareStats(props) {
                     </tr>
                     <tr>
                         <th>Country</th>
-                        <th>{Area1[1]}</th>
-                        <th>{Area2[1]}</th>
+                        <td>{Area[1]}</td>
+                        <td>{Area[9]}</td>
                     </tr>
                     <tr>
-                        <td>New Confirmed</td>
-                        <td>{Area1[2]}</td>
-                        <td>{Area2[2]}</td>
+                        <th>New Confirmed</th>
+                        <td>{Area[2]}</td>
+                        <td>{Area[10]}</td>
                     </tr>
                     <tr>
-                        <td>Total Confirmed</td>
-                        <td>{Area1[3]}</td>
-                        <td>{Area2[3]}</td>
+                        <th>Total Confirmed</th>
+                        <td>{Area[3]}</td>
+                        <td>{Area[11]}</td>
                     </tr>
                     <tr>
-                        <td>New Deaths</td>
-                        <td>{Area1[4]}</td>
-                        <td>{Area2[4]}</td>
+                        <th>New Deaths</th>
+                        <td>{Area[4]}</td>
+                        <td>{Area[12]}</td>
                     </tr>
                     <tr>
-                        <td>Total Deaths</td>
-                        <td>{Area1[5]}</td>
-                        <td>{Area2[5]}</td>
+                        <th>Total Deaths</th>
+                        <td>{Area[5]}</td>
+                        <td>{Area[13]}</td>
                     </tr>
                     <tr>
-                        <td>New Recovered</td>
-                        <td>{Area1[6]}</td>
-                        <td>{Area2[6]}</td>
+                        <th>New Recovered</th>
+                        <td>{Area[6]}</td>
+                        <td>{Area[14]}</td>
                     </tr>
                     <tr>
-                        <td>Total Recovered</td>
-                        <td>{Area1[7]}</td>
-                        <td>{Area2[7]}</td>
+                        <th>Total Recovered</th>
+                        <td>{Area[7]}</td>
+                        <td>{Area[15]}</td>
                     </tr>
                 </table>
             </div>
         );
     }
-    if ( (Area1[0] === "state" && Area2[0] !== "country") || (Area2[0] === "state" && Area1[0] !== "country" ) ) {
+    if ( (Area[0] === "state" && Area[6] !== "country") || (Area[6] === "state" && Area[0] !== "country" ) ) {
         return (
             <div> 
                 <table class="center">
@@ -59,28 +58,28 @@ export function CompareStats(props) {
                     </tr>
                     <tr>
                         <th>State</th>
-                        <th>{Area1[1]}</th>
-                        <th>{Area2[1]}</th>
+                        <th>{Area[1]}</th>
+                        <th>{Area[7]}</th>
                     </tr>
                     <tr>
                         <td>Total Confirmed</td>
-                        <td>{Area1[2]}</td>
-                        <td>{Area2[2]}</td>
+                        <td>{Area[2]}</td>
+                        <td>{Area[8]}</td>
                     </tr>
                     <tr>
                         <td>Total Deaths</td>
-                        <td>{Area1[3]}</td>
-                        <td>{Area2[3]}</td>
+                        <td>{Area[3]}</td>
+                        <td>{Area[9]}</td>
                     </tr>
                     <tr>
                         <td>Total Recovered</td>
-                        <td>{Area1[4]}</td>
-                        <td>{Area2[4]}</td>
+                        <td>{Area[4]}</td>
+                        <td>{Area[10]}</td>
                     </tr>
                     <tr>
                         <td>Current Active</td>
-                        <td>{Area1[5]}</td>
-                        <td>{Area2[5]}</td>
+                        <td>{Area[5]}</td>
+                        <td>{Area[11]}</td>
                     </tr>
                 </table>
             </div>
