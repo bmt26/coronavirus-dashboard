@@ -183,7 +183,7 @@ export function CompareStats(props) {
             {Area[5]}
           </td>
           <td>
-            {Area[6] === 'state' ? (
+            {Area[0] === 'state' ? (
               <button onClick={() => RemoveData(1)}>Remove Territory</button>
             ) : null}
           </td>
