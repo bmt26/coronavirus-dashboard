@@ -69,3 +69,15 @@ table {
   opacity: 1;
   right: 0;
 }
+
+.lesser {
+  color: #ff0000;
+}
+
+.greater {
+  color: #00ff00;
+}
+
+.equal {
+  color: #0000ff;
+}
