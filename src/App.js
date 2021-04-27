@@ -15,8 +15,8 @@ function App() {
   return (
     <div className="App">
       <Authentication socket={socket} />
-      <CompareStats Area={Area}/>
-      <Table Area = {Area} setArea={setArea}/>
+      <CompareStats Area={Area} />
+      <Table Area={Area} setArea={setArea} />
     </div>
   );
 }
