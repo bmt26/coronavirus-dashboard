@@ -164,34 +164,32 @@ export function Table(props) {
         {ShowCountries === true ? (
           <table class="center">
             <tr>
-              <th>Coronavirus Stats</th>
+              <th colspan="8">Coronavirus Stats</th>
             </tr>
-            <div>
-              <tr>
-                <th onClick={() => SortTable('Countries')}>
-                  Countries{SortStat === 'Countries' ? (MostLeast ? '▲' : '▼') : '◆'}
-                </th>
-                <th onClick={() => SortTable('New Confirmed')}>
-                  New Confirmed{SortStat === 'New Confirmed' ? (MostLeast ? '▼' : '▲') : '◆'}
-                </th>
-                <th onClick={() => SortTable('Total Confirmed')}>
-                  Total Confirmed{SortStat === 'Total Confirmed' ? (MostLeast ? '▼' : '▲') : '◆'}
-                </th>
-                <th onClick={() => SortTable('New Deaths')}>
-                  New Deaths{SortStat === 'New Deaths' ? (MostLeast ? '▼' : '▲') : '◆'}
-                </th>
-                <th onClick={() => SortTable('Total Deaths')}>
-                  Total Deaths{SortStat === 'Total Deaths' ? (MostLeast ? '▼' : '▲') : '◆'}
-                </th>
-                <th onClick={() => SortTable('New Recovered')}>
-                  New Recovered{SortStat === 'New Recovered' ? (MostLeast ? '▼' : '▲') : '◆'}
-                </th>
-                <th onClick={() => SortTable('Total Recovered')}>
-                  Total Recovered{SortStat === 'Total Recovered' ? (MostLeast ? '▼' : '▲') : '◆'}
-                </th>
-                <th></th>
-              </tr>
-            </div>
+            <tr>
+              <th onClick={() => SortTable('Countries')}>
+                Countries{SortStat === 'Countries' ? (MostLeast ? '▲' : '▼') : '◆'}
+              </th>
+              <th onClick={() => SortTable('New Confirmed')}>
+                New Confirmed{SortStat === 'New Confirmed' ? (MostLeast ? '▼' : '▲') : '◆'}
+              </th>
+              <th onClick={() => SortTable('Total Confirmed')}>
+                Total Confirmed{SortStat === 'Total Confirmed' ? (MostLeast ? '▼' : '▲') : '◆'}
+              </th>
+              <th onClick={() => SortTable('New Deaths')}>
+                New Deaths{SortStat === 'New Deaths' ? (MostLeast ? '▼' : '▲') : '◆'}
+              </th>
+              <th onClick={() => SortTable('Total Deaths')}>
+                Total Deaths{SortStat === 'Total Deaths' ? (MostLeast ? '▼' : '▲') : '◆'}
+              </th>
+              <th onClick={() => SortTable('New Recovered')}>
+                New Recovered{SortStat === 'New Recovered' ? (MostLeast ? '▼' : '▲') : '◆'}
+              </th>
+              <th onClick={() => SortTable('Total Recovered')}>
+                Total Recovered{SortStat === 'Total Recovered' ? (MostLeast ? '▼' : '▲') : '◆'}
+              </th>
+              <th></th>
+            </tr>
             {newpos.map((pos, index) => (
               <MakeTable
                 countries={Countries[pos]}
@@ -214,32 +212,31 @@ export function Table(props) {
       <div>
         {ShowStates === true ? (
           <table class="center">
-            <button type="button" class="button" onClick={showtable}>
-              Back
-            </button>
             <tr>
-              <th>{ClickedCountry}</th>
+              <th colspan="6">{ClickedCountry}</th>
             </tr>
-            <div>
-              <tr>
-                <th onClick={() => SortTable('States')}>
-                  States{SortStat === 'States' ? (MostLeast ? '▲' : '▼') : '◆'}
-                </th>
-                <th onClick={() => SortTable('States Confirmed')}>
-                  Total Confirmed{SortStat === 'States Confirmed' ? (MostLeast ? '▼' : '▲') : '◆'}
-                </th>
-                <th onClick={() => SortTable('States Deaths')}>
-                  Total Deaths{SortStat === 'States Deaths' ? (MostLeast ? '▼' : '▲') : '◆'}
-                </th>
-                <th onClick={() => SortTable('States Recovered')}>
-                  Total Recovered{SortStat === 'States Recovered' ? (MostLeast ? '▼' : '▲') : '◆'}
-                </th>
-                <th onClick={() => SortTable('States Active')}>
-                  Current Active{SortStat === 'States Active' ? (MostLeast ? '▼' : '▲') : '◆'}
-                </th>
-                <th></th>
-              </tr>
-            </div>
+            <tr>
+              <th onClick={() => SortTable('States')}>
+                States{SortStat === 'States' ? (MostLeast ? '▲' : '▼') : '◆'}
+              </th>
+              <th onClick={() => SortTable('States Confirmed')}>
+                Total Confirmed{SortStat === 'States Confirmed' ? (MostLeast ? '▼' : '▲') : '◆'}
+              </th>
+              <th onClick={() => SortTable('States Deaths')}>
+                Total Deaths{SortStat === 'States Deaths' ? (MostLeast ? '▼' : '▲') : '◆'}
+              </th>
+              <th onClick={() => SortTable('States Recovered')}>
+                Total Recovered{SortStat === 'States Recovered' ? (MostLeast ? '▼' : '▲') : '◆'}
+              </th>
+              <th onClick={() => SortTable('States Active')}>
+                Current Active{SortStat === 'States Active' ? (MostLeast ? '▼' : '▲') : '◆'}
+              </th>
+              <th>
+                <button type="button" class="button" onClick={showtable}>
+                  Back
+                </button>
+              </th>
+            </tr>
             {newpos.map((pos, index) => (
               <StateTable
                 states={States[pos]}
