@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import io from 'socket.io-client';
+import CompareStats from './CompareStats.js';
 import { MakeTable } from './MakeTable.js';
 import { StateTable } from './StatesTable.js';
 import { SortInit } from './Sort.js';
@@ -163,6 +164,7 @@ export function Table(props) {
       <div>
         {ShowCountries === true ? (
           <table class="center">
+            <CompareStats Area={Area} setArea={setArea} />
             <tr>
               <th colspan="8">Coronavirus Stats</th>
             </tr>

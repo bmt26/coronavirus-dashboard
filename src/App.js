@@ -1,7 +1,6 @@
 import io from 'socket.io-client';
 import { React, useState } from 'react';
 import Authentication from './Authentication';
-import CompareStats from './CompareStats.js';
 import { Table } from './Table.js';
 
 import './App.css';
@@ -15,7 +14,6 @@ function App() {
   return (
     <div className="App">
       <Authentication socket={socket} />
-      <CompareStats Area={Area} />
       <Table Area={Area} setArea={setArea} />
     </div>
   );
