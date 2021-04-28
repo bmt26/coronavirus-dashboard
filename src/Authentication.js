@@ -2,11 +2,10 @@ import { React, useState } from 'react';
 import Login from './Login';
 import Logout from './Logout';
 import UserProfile from './UserProfile';
+import SetCountry from './SetCountry';
 
 import './Authentication.css';
-import './UserProfile.css';
-import './Logout.css';
-import SetCountry from './SetCountry';
+
 
 // Function to handle user Authentication
 function Authentication(props) {
@@ -19,7 +18,9 @@ function Authentication(props) {
   if (loggedIn === false) {
     return (
       <div>
-        <div className="auth-div">
+        <div class="topnav">
+          <a class="active" href="#home">Home</a>
+          <a href="#news">News</a>
           <Login
             loggedIn={loggedIn}
             setLoggedIn={setLoggedIn}
@@ -34,9 +35,14 @@ function Authentication(props) {
   // Display the Logout component and UserProfile and SetCountry dropdown and set button when the user has logged in
   return (
     <div>
-      <div className="auth-div">
+      <div className="topnav">
+        <a class="active" href="#home">Home</a>
+        <a href="#news">News</a>
+        <Logout 
+          loggedIn={loggedIn} 
+          setLoggedIn={setLoggedIn} 
+        />
         <UserProfile userProfile={userProfile} />
-        <Logout loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
         <SetCountry />
       </div>
     </div>

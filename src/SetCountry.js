@@ -17,8 +17,8 @@ function SetCountry() {
   }
 
   return (
-    <form>
-      <select className="dropdown" name="dropdown" id="countries">
+    <div class="a">
+      <select id="countries">
         <option disabled hidden selected>
           Countries
         </option>
@@ -26,12 +26,11 @@ function SetCountry() {
           <option>{country}</option>
         ))}
       </select>
-      <div className="set">
-        <button type="button" onClick={() => setHomeCountry()}>
-          Set Home Country
-        </button>
-      </div>
-    </form>
+      
+      <button type="button" onClick={() => setHomeCountry()}>
+        Set Home Country
+      </button>
+    </div>
   );
 }
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { GoogleLogout } from 'react-google-login';
+import './Authentication.css';
 
 // Get the Google API clientId environment variable
 const clientId = process.env.REACT_APP_CLIENT_ID;
@@ -14,9 +15,8 @@ function Logout(props) {
   };
 
   return (
-    <div>
+    <div class="login_button">
       <GoogleLogout
-        className="logout-button"
         clientId={clientId}
         buttonText="Logout"
         onLogoutSuccess={onSuccess}
@@ -26,3 +26,5 @@ function Logout(props) {
 }
 
 export default Logout;
+
+//className="logout-button"
