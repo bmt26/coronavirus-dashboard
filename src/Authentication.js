@@ -7,6 +7,7 @@ import './Authentication.css';
 import './UserProfile.css';
 import './Logout.css';
 import SetCountry from './SetCountry';
+import UsersTable from './UsersTable';
 
 // Function to handle user Authentication
 function Authentication(props) {
@@ -38,6 +39,7 @@ function Authentication(props) {
         <UserProfile userProfile={userProfile} />
         <Logout loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
         <SetCountry />
+        <UsersTable />
       </div>
     </div>
   );

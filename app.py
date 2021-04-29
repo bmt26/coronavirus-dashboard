@@ -161,7 +161,9 @@ def on_login(data):
     TEMPEMAIL = data['email']
     print("TEMPEMAIL", TEMPEMAIL)
     
-    users_table_content()
+    table_content = users_table_content()
+    
+    SOCKETIO.emit('content', table_content, broadcast=True, include_self=False)
     
 def users_table_content():
     """ This function returns a dictionary with 2 arrays for names and countries """
