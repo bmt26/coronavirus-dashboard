@@ -254,7 +254,10 @@ def update_country(data):
     user.country = country
     DB.session.commit()
     print(user.country)
-    SOCKETIO.emit('new_country', data, broadcast=True, include_self=False)
+    
+    table_content = users_table_content()
+    
+    SOCKETIO.emit('newContent', table_content, broadcast=True, include_self=False)
 
 # Allow for the importing of the app in python shell
 if __name__ == "__main__":

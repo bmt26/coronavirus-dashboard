@@ -23,6 +23,15 @@ function UsersTable() {
       setUsers(data.users);
       setHomeCountries(data.countries);
     });
+    
+    socket.on('newContent', (data) => {
+      // Update lists with new data for home country
+      console.log('Array for users table', data.users);
+      console.log('Array for home countries', data.countries);
+
+      setUsers(data.users);
+      setHomeCountries(data.countries);
+    });
   }, []);
   
   function tableContent(){
