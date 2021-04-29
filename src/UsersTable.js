@@ -26,16 +26,6 @@ function UsersTable() {
   }, []);
   
   function tableContent(){
-    const table = users.map((value, index) => {
-      const content = homeCountries[index];
-      return (
-        <tr>
-            <td>{value}</td>
-            <td>{content}</td>
-        </tr>
-      );
-    });
-    
     return (
       <table>
         <thead>
@@ -45,17 +35,30 @@ function UsersTable() {
         </thead>
         <tbody>
           <tr>
-            <td>Name and Last Name</td>
-            <td>Home Country</td>
+            <th>Name and Last Name</th>
+            <th>Home Country</th>
           </tr>
-          <tr>{table}</tr>
+          <td>
+            {users.map((user, i) => (
+            <tr>
+              <td>{user}</td>
+            </tr>
+            ))}
+          </td>
+          <td>
+            {homeCountries.map((country, i) => (
+            <tr>
+              <td>{country}</td>
+            </tr>
+            ))}
+          </td>
         </tbody>
       </table>
     );
   }
   
   return (
-      <div className="leaderboard">
+      <div className="UsersTable">
           {tableContent()}
       </div>
   );
