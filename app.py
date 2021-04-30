@@ -160,6 +160,34 @@ def on_login(data):
     global TEMPEMAIL
     TEMPEMAIL = data['email']
     print("TEMPEMAIL", TEMPEMAIL)
+    
+    table_content = users_table_content()
+    
+    SOCKETIO.emit('content', table_content, broadcast=True, include_self=False)
+    
+def users_table_content():
+    """ This function returns a dictionary with 2 arrays for names and countries """
+    # Adding code to send data for user name and home country
+    # Query the database to get all users
+    all_users = models.UserData.query.all()
+    
+    users_for_table = []
+    home_countries = []
+    
+    # Loop through all users in database
+    for user in all_users:
+        users_for_table.append(user.name)
+        home_countries.append(user.country)
+    
+    # Instantiate empty user dictionary
+    user_dict = {}
+    user_dict['users'] = users_for_table
+    user_dict['countries'] = home_countries
+    
+    print('Array for users table', user_dict['users'])
+    print('Array for home countries', user_dict['countries'])
+    
+    return user_dict
 
 @SOCKETIO.on('connect')
 def get_data():
@@ -225,7 +253,11 @@ def update_country(data):
 
     user.country = country
     DB.session.commit()
-    SOCKETIO.emit('new_country', data, broadcast=True, include_self=False)
+    print(user.country)
+    
+    table_content = users_table_content()
+    
+    SOCKETIO.emit('newContent', table_content, broadcast=True, include_self=False)
 
 # Allow for the importing of the app in python shell
 if __name__ == "__main__":
