@@ -1,0 +1,38 @@
+
+
+
+h1 {
+  font-family: Copperplate;
+  font-size: 48px;
+  font-style: normal;
+  font-variant: small-caps;
+  font-weight: 100;
+  line-height: 52.8px;
+}
+
+p {
+  font-family: Copperplate;
+  font-size: 28px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 700;
+  line-height: 40px;
+}
+
+.block {
+  text-align: center;
+}
+
+.text {
+  background-color:#AADDAA;
+  border: 15px solid #114411;
+  padding: 50px;
+  margin: 20px;
+  width: 50%;
+  display: inline-block;
+}
+
+.para {
+  text-align: left;
+}
+
