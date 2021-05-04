@@ -1,5 +1,6 @@
 import React from 'react';
 import { GoogleLogin } from 'react-google-login';
+import './Authentication.css';
 
 // Get the Google API clientId environment variable
 const clientId = process.env.REACT_APP_CLIENT_ID;
@@ -34,7 +35,7 @@ function Login(props) {
   };
 
   return (
-    <div>
+    <div class="login_button">
       <GoogleLogin
         clientId={clientId}
         buttonText="Login"

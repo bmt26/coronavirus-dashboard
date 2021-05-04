@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './UsersTable.css';
 import io from 'socket.io-client';
 
@@ -8,11 +8,10 @@ const socket = io();
 // <SetCountry />
 
 function UsersTable() {
-
   // Leaderboard state
   const [users, setUsers] = useState([]);
   const [homeCountries, setHomeCountries] = useState([]);
-  
+
   // Get users and home countries list then display them
 
   useEffect(() => {
@@ -23,7 +22,7 @@ function UsersTable() {
       setUsers(data.users);
       setHomeCountries(data.countries);
     });
-    
+
     socket.on('newContent', (data) => {
       // Update lists with new data for home country
       console.log('Array for users table', data.users);
@@ -33,8 +32,8 @@ function UsersTable() {
       setHomeCountries(data.countries);
     });
   }, []);
-  
-  function tableContent(){
+
+  function tableContent() {
     return (
       <table>
         <thead>
@@ -49,28 +48,24 @@ function UsersTable() {
           </tr>
           <td>
             {users.map((user, i) => (
-            <tr>
-              <td>{user}</td>
-            </tr>
+              <tr>
+                <td>{user}</td>
+              </tr>
             ))}
           </td>
           <td>
             {homeCountries.map((country, i) => (
-            <tr>
-              <td>{country}</td>
-            </tr>
+              <tr>
+                <td>{country}</td>
+              </tr>
             ))}
           </td>
         </tbody>
       </table>
     );
   }
-  
-  return (
-      <div className="UsersTable">
-          {tableContent()}
-      </div>
-  );
+
+  return <div className="UsersTable">{tableContent()}</div>;
 }
 
 export default UsersTable;
