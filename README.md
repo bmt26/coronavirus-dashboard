@@ -1,4 +1,6 @@
 Sprint 1 Heroku Link: https://secret-taiga-47016.herokuapp.com/
+Spring 2 Heroku Link: https://coronavirus-dashboard-sprint2.herokuapp.com/
+
 # CS490 Project 3 - Coronavirus Dashboard
 This project allows for a user to connect and view the Coronavirus statistics of all countries. Upon clicking the name of a country in the statistics table, a user can view the Coronavirus statistics of the states/territories in that country. Upon user login, a user can set their "Home" country to personalize their Coronavirus statistics dashboard.
 
@@ -99,11 +101,11 @@ This project allows for a user to connect and view the Coronavirus statistics of
   * The Coronavirus Statistics API in use does not support states/territories for some countries.
 
 ## Project Improvement
-1. Add a text entry and button to allow a user to search for countries/states/territories
-  * Create a new component to support a search field entry
-  * Emit the name of the country/state/territory to the server
-  * Request the statistics for the desired country/state/territory
-  * Emit the statistics back to the client
+1. ~~Add a text entry and button to allow a user to search for countries/states/territories~~ COMPLETE!
+  * ~~Create a new component to support a search field entry~~
+  * ~~Emit the name of the country/state/territory to the server~~
+  * ~~Request the statistics for the desired country/state/territory~~
+  * ~~Emit the statistics back to the client~~
 2. Only display 25 rows on the Coronavirus Dashboard, but allow users to click "Show More" to extend the table
   * When displaying the dashboard, loop through and display only the first 25 rows
   * Create a "Show More" button
