@@ -4,9 +4,11 @@ import io from 'socket.io-client';
 import CompareStats from './CompareStats.js';
 import { MakeTable } from './MakeTable.js';
 import { StateTable } from './StatesTable.js';
+import { News } from './News.js';
 import { SortInit } from './Sort.js';
 import PropTypes from 'prop-types';
 import './TableStyle.css';
+import './News.css';
 
 const socket = io();
 let countriesArr;
@@ -19,7 +21,12 @@ export function Table(props) {
   const [NewRecovered, setNewRecovered] = useState([]);
   const [TotalRecovered, setTotalRecovered] = useState([]);
   const [ShowCountries, setShowCountries] = useState(true);
+  const [ShowNews, setShowNews] = useState(false);
   const [ShowStates, setShowStates] = useState(false);
+
+  const [Headline, setHeadline] = useState([]);
+  const [Snippet, setSnippet] = useState([]);
+  const [URL, setURL] = useState([]);
 
   const [States, setStates] = useState([]);
   const [StateConfirmed, setStateConfirmed] = useState([]);
@@ -91,6 +98,26 @@ export function Table(props) {
         console.log(err.message);
       }
       SortTable('Total Confirmed');
+    });
+    
+    socket.on('home', (data) => {
+      setShowCountries(true);
+      setShowNews(false);
+      setShowStates(false);
+    });
+    
+    socket.on('news', (data) => {
+      setShowCountries(false);
+      setShowNews(true);
+      setShowStates(false);
+      
+      const head = [...data.headline];
+      const snip = [...data.snippet];
+      const url = [...data.url];
+      
+      setHeadline(head);
+      setSnippet(snip);
+      setURL(url);
     });
 
     socket.on('States', (data) => {
@@ -254,6 +281,23 @@ export function Table(props) {
           </table>
         ) : null}
       </div>
+      
+      <div>
+        {ShowNews === true ? (
+        
+          <div>
+          {Headline.map((head,index) => (
+            <News
+              headline={Headline[index]}
+              snippet={Snippet[index]}
+              url={URL[index]}
+            />
+          ))}
+          </div>
+        
+        ): null}
+        </div>
+      
     </div>
   );
 }

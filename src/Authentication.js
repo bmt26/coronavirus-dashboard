@@ -14,13 +14,26 @@ function Authentication(props) {
   // Declare userProfile and setUserProfile
   const [userProfile, setUserProfile] = useState({});
 
+function GetNews(){
+  props.socket.emit('news');
+  document.getElementById("news").classList.add('active');
+  document.getElementById("home").classList.remove('active');
+}
+
+function GoHome(){
+  props.socket.emit('home');
+  document.getElementById("home").classList.add('active');
+  document.getElementById("news").classList.remove('active');
+}
+
+
   // Display the Login component when the user has not logged in
   if (loggedIn === false) {
     return (
       <div>
         <div class="topnav">
-          <a class="active" href="#home">Home</a>
-          <a href="#news">News</a>
+          <a id="home" onClick={() => GoHome()} class="active" href="#home">Home</a>
+          <a id="news" onClick={() => GetNews()} href="#news">News</a>
           <Login
             loggedIn={loggedIn}
             setLoggedIn={setLoggedIn}
