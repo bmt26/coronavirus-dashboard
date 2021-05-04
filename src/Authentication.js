@@ -59,8 +59,9 @@ function GoAbout(){
   return (
     <div>
       <div className="topnav">
-        <a class="active" href="#home">Home</a>
-        <a href="#news">News</a>
+        <a id="home" onClick={() => GoHome()} class="active" href="#home">Home</a>
+        <a id="news" onClick={() => GetNews()} href="#news">News</a>
+        <a id="about" onClick={() => GoAbout()} href="#about">About</a>
         <Logout 
           loggedIn={loggedIn} 
           setLoggedIn={setLoggedIn} 
