@@ -241,6 +241,43 @@ def get_state(data):
                             'Deaths' : deaths, 
                             'Recovered' : recovered, 
                             'Active' : active})
+                            
+@SOCKETIO.on('news')
+def get_news():
+    
+    headline = []
+    snippet = []
+    url = []
+    
+    BASE_URL = 'https://api.nytimes.com/svc/search/v2/articlesearch.json'
+    params = {'q': 'corona','api-key': os.getenv('NYT_KEY')}
+    response = requests.get(BASE_URL, params=params)
+    data = response.json()
+    index = 10
+    for i in range(index):
+        if len(data['response']['docs'][i]['headline']['main']) == 0:
+            continue
+        
+        elif len(data['response']['docs'][i]['snippet']) == 0:
+            continue
+        headline.append(data['response']['docs'][i]['headline']['main'])
+        snippet.append(data['response']['docs'][i]['snippet'])
+        url.append(data['response']['docs'][i]['web_url'])
+    
+    SOCKETIO.emit('news', {'headline' : headline,
+                            'snippet' : snippet,
+                            'url' : url,
+                            })
+
+
+@SOCKETIO.on('home')
+def go_home():
+    SOCKETIO.emit('home')
+
+@SOCKETIO.on('about')
+def go_about():
+    SOCKETIO.emit('about')
+
 @SOCKETIO.on('newHomeCountry')
 def update_country(data):
     '''Function to modify user home country'''

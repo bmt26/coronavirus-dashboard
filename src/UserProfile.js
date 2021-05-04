@@ -1,11 +1,14 @@
 import React from 'react';
+import './UserProfile.css';
 
 function UserProfile(props) {
   console.log(props.userProfile['email']);
   return (
-    <div className="user-profile">
+    <div>
+      <p>
       <img src={props.userProfile['image']} alt="User's Profile" />
-      <b> {props.userProfile['name']} </b>
+      <b>{props.userProfile['name']} </b>
+      </p>
     </div>
   );
 }
