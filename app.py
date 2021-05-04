@@ -214,7 +214,7 @@ def get_data():
                             'newdeaths' : NEWDEATHS, 
                             'totaldeaths' : TOTALDEATHS, 
                             'newrecovered' : NEWRECOVERED, 
-                            'totalrecovered' : TOTALRECOVERED})
+                            'totalrecovered' : TOTALRECOVERED}, broadcast=False, include_self=True)
 @SOCKETIO.on('getstate')
 def get_state(data):
     '''This function will get all the data of a certain country'''
@@ -240,7 +240,7 @@ def get_state(data):
                             'Confirmed' : confirmed, 
                             'Deaths' : deaths, 
                             'Recovered' : recovered, 
-                            'Active' : active})
+                            'Active' : active}, broadcast=False, include_self=True)
                             
 @SOCKETIO.on('news')
 def get_news():
@@ -267,16 +267,16 @@ def get_news():
     SOCKETIO.emit('news', {'headline' : headline,
                             'snippet' : snippet,
                             'url' : url,
-                            })
+                            }, broadcast=False, include_self=True)
 
 
 @SOCKETIO.on('home')
 def go_home():
-    SOCKETIO.emit('home')
+    SOCKETIO.emit('home', broadcast=False, include_self=True)
 
 @SOCKETIO.on('about')
 def go_about():
-    SOCKETIO.emit('about')
+    SOCKETIO.emit('about', broadcast=False, include_self=True)
 
 @SOCKETIO.on('newHomeCountry')
 def update_country(data):
@@ -294,7 +294,7 @@ def update_country(data):
     
     table_content = users_table_content()
     
-    SOCKETIO.emit('newContent', table_content, broadcast=True, include_self=False)
+    SOCKETIO.emit('newContent', table_content, broadcast=False, include_self=True)
 
 # Allow for the importing of the app in python shell
 if __name__ == "__main__":
