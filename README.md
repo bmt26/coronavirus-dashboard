@@ -1,5 +1,5 @@
-Sprint 1 Heroku Link: https://secret-taiga-47016.herokuapp.com/
-Spring 2 Heroku Link: https://coronavirus-dashboard-sprint2.herokuapp.com/
+* Sprint 1 Heroku Link: https://secret-taiga-47016.herokuapp.com/
+* Sprint 2 Heroku Link: https://coronavirus-dashboard-sprint2.herokuapp.com/
 
 # CS490 Project 3 - Coronavirus Dashboard
 This project allows for a user to connect and view the Coronavirus statistics of all countries. Upon clicking the name of a country in the statistics table, a user can view the Coronavirus statistics of the states/territories in that country. Upon user login, a user can set their "Home" country to personalize their Coronavirus statistics dashboard.
@@ -64,7 +64,7 @@ This project allows for a user to connect and view the Coronavirus statistics of
 12. Push code to Heroku's remote repository using `git push heroku main`
 13. Navigate to your [Heroku Dashboard](https://dashboard.heroku.com/apps) and select your application. Select `Settings`. then `Reveal Config Vars`
 14. Add `REACT_APP_CLIENT_ID`, `username`, and `password` with the values from your `.env` file.
-15. Run `heroku open` in the terminal and click on the link to view your [live application](https://secret-taiga-47016.herokuapp.com/)
+15. Run `heroku open` in the terminal and click on the link to view your [live application](https://coronavirus-dashboard-sprint2.herokuapp.com/)
 
 ## Update Database With Python
 1. In the terminal, run `python` to open the interactive Python shell and run the following lines of code.
