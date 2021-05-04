@@ -359,7 +359,7 @@ def get_searched_country(data):
     print(statistics)
 
     # Emit the 'search_country' event back to the client
-    SOCKETIO.emit('search_country', statistics, boardcast=False, include_self=True)
+    SOCKETIO.emit('search_country', statistics, broadcast=False, include_self=True)
 
 # Allow for the importing of the app in python shell
 if __name__ == "__main__":
