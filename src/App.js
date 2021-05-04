@@ -1,5 +1,5 @@
 import io from 'socket.io-client';
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import Authentication from './Authentication';
 import SearchCountry from './SearchCountry'
 import { Table } from './Table.js';
@@ -23,6 +23,14 @@ function App() {
     console.log({ country })
     socket.emit('search_country', { country });
   }
+
+  // Functions inside of useEffect are run when variables in array changes
+  useEffect(() => {
+    // Listen for the 'search_country' event emitted by the server
+    socket.on('search_country', (data) => {
+      console.log(data);
+    });
+  }, []);
 
   return (
     <div className="App">
