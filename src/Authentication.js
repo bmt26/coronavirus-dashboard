@@ -3,6 +3,7 @@ import Login from './Login';
 import Logout from './Logout';
 import UserProfile from './UserProfile';
 import SetCountry from './SetCountry';
+import UsersTable from './UsersTable';
 
 import './Authentication.css';
 
