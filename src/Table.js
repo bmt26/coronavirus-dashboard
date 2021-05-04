@@ -20,9 +20,11 @@ export function Table(props) {
   const [TotalDeaths, setTotalDeaths] = useState([]);
   const [NewRecovered, setNewRecovered] = useState([]);
   const [TotalRecovered, setTotalRecovered] = useState([]);
+  
   const [ShowCountries, setShowCountries] = useState(true);
   const [ShowNews, setShowNews] = useState(false);
   const [ShowStates, setShowStates] = useState(false);
+  const [ShowAbout, setShowAbout] = useState(false);
 
   const [Headline, setHeadline] = useState([]);
   const [Snippet, setSnippet] = useState([]);
@@ -104,12 +106,21 @@ export function Table(props) {
       setShowCountries(true);
       setShowNews(false);
       setShowStates(false);
+      setShowAbout(false);
+    });
+    
+    socket.on('about', (data) => {
+      setShowAbout(true);
+      setShowCountries(false);
+      setShowNews(false);
+      setShowStates(false);
     });
     
     socket.on('news', (data) => {
       setShowCountries(false);
       setShowNews(true);
       setShowStates(false);
+      setShowAbout(false);
       
       const head = [...data.headline];
       const snip = [...data.snippet];
@@ -294,6 +305,14 @@ export function Table(props) {
             />
           ))}
           </div>
+        
+        ): null}
+        </div>
+        
+        <div>
+        {ShowAbout === true ? (
+          
+        <p> About page </p>
         
         ): null}
         </div>

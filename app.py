@@ -245,7 +245,10 @@ def get_news():
 @SOCKETIO.on('home')
 def go_home():
     SOCKETIO.emit('home')
-    
+
+@SOCKETIO.on('about')
+def go_about():
+    SOCKETIO.emit('about')
 
 @SOCKETIO.on('newHomeCountry')
 def update_country(data):

@@ -18,11 +18,20 @@ function GetNews(){
   props.socket.emit('news');
   document.getElementById("news").classList.add('active');
   document.getElementById("home").classList.remove('active');
+  document.getElementById("about").classList.remove('active');
 }
 
 function GoHome(){
   props.socket.emit('home');
   document.getElementById("home").classList.add('active');
+  document.getElementById("news").classList.remove('active');
+  document.getElementById("about").classList.remove('active');
+}
+
+function GoAbout(){
+  props.socket.emit('about');
+  document.getElementById("about").classList.add('active');
+  document.getElementById("home").classList.remove('active');
   document.getElementById("news").classList.remove('active');
 }
 
@@ -34,6 +43,7 @@ function GoHome(){
         <div class="topnav">
           <a id="home" onClick={() => GoHome()} class="active" href="#home">Home</a>
           <a id="news" onClick={() => GetNews()} href="#news">News</a>
+          <a id="about" onClick={() => GoAbout()} href="#about">About</a>
           <Login
             loggedIn={loggedIn}
             setLoggedIn={setLoggedIn}
