@@ -6,8 +6,8 @@ function UserProfile(props) {
   return (
     <div>
       <p>
-      <img src={props.userProfile['image']} alt="User's Profile" />
-      <b>{props.userProfile['name']} </b>
+        <img src={props.userProfile['image']} alt="User's Profile" />
+        <b>{props.userProfile['name']} </b>
       </p>
     </div>
   );

@@ -26,7 +26,7 @@ function SetCountry() {
           <option>{country}</option>
         ))}
       </select>
-      
+
       <button type="button" onClick={() => setHomeCountry()}>
         Set Home Country
       </button>

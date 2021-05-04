@@ -16,11 +16,7 @@ function Logout(props) {
 
   return (
     <div class="login_button">
-      <GoogleLogout
-        clientId={clientId}
-        buttonText="Logout"
-        onLogoutSuccess={onSuccess}
-      />
+      <GoogleLogout clientId={clientId} buttonText="Logout" onLogoutSuccess={onSuccess} />
     </div>
   );
 }

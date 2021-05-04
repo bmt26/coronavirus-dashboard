@@ -1,6 +1,3 @@
-
-
-
 h1 {
   font-family: Copperplate;
   font-size: 48px;
@@ -24,7 +21,7 @@ p {
 }
 
 .text {
-  background-color:#AADDAA;
+  background-color: #aaddaa;
   border: 15px solid #114411;
   padding: 50px;
   margin: 20px;
@@ -35,4 +32,3 @@ p {
 .para {
   text-align: left;
 }
-

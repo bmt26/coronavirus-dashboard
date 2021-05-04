@@ -9,6 +9,7 @@ import { SortInit } from './Sort.js';
 import PropTypes from 'prop-types';
 import './TableStyle.css';
 import './News.css';
+import LandingPage from './LandingPage.js';
 
 const socket = io();
 let countriesArr;
@@ -20,7 +21,7 @@ export function Table(props) {
   const [TotalDeaths, setTotalDeaths] = useState([]);
   const [NewRecovered, setNewRecovered] = useState([]);
   const [TotalRecovered, setTotalRecovered] = useState([]);
-  
+
   const [ShowCountries, setShowCountries] = useState(true);
   const [ShowNews, setShowNews] = useState(false);
   const [ShowStates, setShowStates] = useState(false);
@@ -101,31 +102,31 @@ export function Table(props) {
       }
       SortTable('Total Confirmed');
     });
-    
+
     socket.on('home', (data) => {
       setShowCountries(true);
       setShowNews(false);
       setShowStates(false);
       setShowAbout(false);
     });
-    
+
     socket.on('about', (data) => {
       setShowAbout(true);
       setShowCountries(false);
       setShowNews(false);
       setShowStates(false);
     });
-    
+
     socket.on('news', (data) => {
       setShowCountries(false);
       setShowNews(true);
       setShowStates(false);
       setShowAbout(false);
-      
+
       const head = [...data.headline];
       const snip = [...data.snippet];
       const url = [...data.url];
-      
+
       setHeadline(head);
       setSnippet(snip);
       setURL(url);
@@ -292,31 +293,18 @@ export function Table(props) {
           </table>
         ) : null}
       </div>
-      
+
       <div>
         {ShowNews === true ? (
-        
           <div>
-          {Headline.map((head,index) => (
-            <News
-              headline={Headline[index]}
-              snippet={Snippet[index]}
-              url={URL[index]}
-            />
-          ))}
+            {Headline.map((head, index) => (
+              <News headline={Headline[index]} snippet={Snippet[index]} url={URL[index]} />
+            ))}
           </div>
-        
-        ): null}
-        </div>
-        
-        <div>
-        {ShowAbout === true ? (
-          
-        <p> About page </p>
-        
-        ): null}
-        </div>
-      
+        ) : null}
+      </div>
+
+      <div>{ShowAbout === true ? <LandingPage /> : null}</div>
     </div>
   );
 }
