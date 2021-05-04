@@ -7,9 +7,11 @@ function LandingPage() {
         <div class="para">
           <p class="land">
             &emsp;&emsp;We designed this website with the purpose to provide statistics on the
-            COVID-19. Due to this unprecedented time is extremely important to know how countries
+            COVID-19 pandemic. Due to this unprecedented time is extremely important to know how countries
             and states are doing in regards to the number of deaths, confirmed cases, total deaths,
-            and the people that have recovered from it.
+            and the people that have recovered from it. We decided to work on this website and
+            make it as useful as possible for whoever that visits our website by having a simple and
+            user friendly UI.
           </p>
           <p class="land">
             We also wanted people to be able to register on our website and add a home country if
