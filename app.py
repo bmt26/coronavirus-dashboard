@@ -259,6 +259,44 @@ def update_country(data):
     
     SOCKETIO.emit('newContent', table_content, broadcast=True, include_self=False)
 
+@SOCKETIO.on('search_country')
+def get_searched_country(data):
+    """ Run function when client emits 'search_country' event to server """
+    # Store user input in a variable. Format to API naming convention
+    user_country = data['country'].replace(' ', '-').lower()
+
+    # URL to get statistics for specific country
+    base_url = "https://api.covid19api.com/total/country/{}".format(user_country)
+
+    # Send request to API
+    response = requests.get(base_url, auth=HTTPBasicAuth(USERNAME, PASSWORD))
+
+    # Convert response to JSON
+    response_data = response.json()
+
+    # Get length of response for indexing
+    length = len(response_data) - 1
+
+    # Instantiate statistics dictionary
+    statistics = {}
+
+    # Store statistics in dictionary
+    statistics['country'] = response_data[length]['Country']
+    statistics['confirmed'] = response_data[length]['Confirmed']
+    statistics['deaths'] = response_data[length]['Deaths']
+    statistics['recovered'] = response_data[length]['Recovered']
+    statistics['active'] = response_data[length]['Active']
+    # print(response_data[length]['Country'])
+    # print(response_data[length]['Confirmed'])
+    # print(response_data[length]['Deaths'])
+    # print(response_data[length]['Recovered'])
+    # print(response_data[length]['Active'])
+
+    print(statistics)
+
+    # Emit the 'search_country' event back to the client
+    SOCKETIO.emit('search_country', statistics, boardcast=False, include_self=True)
+
 # Allow for the importing of the app in python shell
 if __name__ == "__main__":
     # Call SOCKETIO.run with app arg
