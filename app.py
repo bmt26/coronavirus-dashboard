@@ -49,11 +49,13 @@ SOCKETIO = SocketIO(APP,
                     json=json,
                     manage_session=False)
 
+
 @APP.route('/', defaults={"filename": "index.html"})
 @APP.route('/<path:filename>')
 def index(filename):
     """ Retrieve index.html and serve to the webpage using Flask """
     return send_from_directory('./build', filename)
+
 
 def add_user_to_db(data):
     """ Function to add a new user to the database """
@@ -64,7 +66,10 @@ def add_user_to_db(data):
     country = "None"
 
     # Model a new user
-    new_user = models.UserData(email=email, name=name, image=image, country=country)
+    new_user = models.UserData(email=email,
+                               name=name,
+                               image=image,
+                               country=country)
 
     # Add new user to database
     DB.session.add(new_user)
@@ -91,6 +96,7 @@ def add_user_to_db(data):
 
     return users
 
+
 def modify_country_in_db(data):
     """ Function to modify a users country in the database """
     # Query the database for desired user using email
@@ -113,6 +119,7 @@ def modify_country_in_db(data):
 
     return user_dict
 
+
 def get_state_statistics(country):
     """ Function to retrieve the statistics for a particular country """
     state = []
@@ -134,6 +141,7 @@ def get_state_statistics(country):
 
     return state
 
+
 def get_country_statistics():
     """ Function to retrieve the statistics per country """
     #URL to get all the data for countries
@@ -148,46 +156,50 @@ def get_country_statistics():
 
     return COUNTRIES
 
+
 @SOCKETIO.on('login')
 def on_login(data):
     """ Run function when a client emits the 'login' event to the server """
     print(data)
 
     # Check if logged in user exists in database. If not, add user
-    if DB.session.query(models.UserData).filter_by(email=data['email']).first() is None:
+    if DB.session.query(
+            models.UserData).filter_by(email=data['email']).first() is None:
         print("Adding user to database!")
         add_user_to_db(data)
     global TEMPEMAIL
     TEMPEMAIL = data['email']
     print("TEMPEMAIL", TEMPEMAIL)
-    
+
     table_content = users_table_content()
-    
+
     SOCKETIO.emit('content', table_content, broadcast=True, include_self=False)
-    
+
+
 def users_table_content():
     """ This function returns a dictionary with 2 arrays for names and countries """
     # Adding code to send data for user name and home country
     # Query the database to get all users
     all_users = models.UserData.query.all()
-    
+
     users_for_table = []
     home_countries = []
-    
+
     # Loop through all users in database
     for user in all_users:
         users_for_table.append(user.name)
         home_countries.append(user.country)
-    
+
     # Instantiate empty user dictionary
     user_dict = {}
     user_dict['users'] = users_for_table
     user_dict['countries'] = home_countries
-    
+
     print('Array for users table', user_dict['users'])
     print('Array for home countries', user_dict['countries'])
-    
+
     return user_dict
+
 
 @SOCKETIO.on('connect')
 def get_data():
@@ -208,13 +220,18 @@ def get_data():
             NEWRECOVERED.append(response[i]['NewRecovered'])
             TOTALRECOVERED.append(response[i]['TotalRecovered'])
     print("sending the data")
-    SOCKETIO.emit('connect', {'countries' : COUNTRIES, 
-                            'newconfirmed' : NEWCONFORM, 
-                            'totalconfirmed' : TOTALCONFORM, 
-                            'newdeaths' : NEWDEATHS, 
-                            'totaldeaths' : TOTALDEATHS, 
-                            'newrecovered' : NEWRECOVERED, 
-                            'totalrecovered' : TOTALRECOVERED})
+    SOCKETIO.emit(
+        'connect', {
+            'countries': COUNTRIES,
+            'newconfirmed': NEWCONFORM,
+            'totalconfirmed': TOTALCONFORM,
+            'newdeaths': NEWDEATHS,
+            'totaldeaths': TOTALDEATHS,
+            'newrecovered': NEWRECOVERED,
+            'totalrecovered': TOTALRECOVERED
+        })
+
+
 @SOCKETIO.on('getstate')
 def get_state(data):
     '''This function will get all the data of a certain country'''
@@ -236,47 +253,54 @@ def get_state(data):
             deaths.append(response[i]['Deaths'])
             recovered.append(response[i]['Recovered'])
             active.append(response[i]['Active'])
-    SOCKETIO.emit('States', {'State' : state, 
-                            'Confirmed' : confirmed, 
-                            'Deaths' : deaths, 
-                            'Recovered' : recovered, 
-                            'Active' : active})
-                            
+    SOCKETIO.emit(
+        'States', {
+            'State': state,
+            'Confirmed': confirmed,
+            'Deaths': deaths,
+            'Recovered': recovered,
+            'Active': active
+        })
+
+
 @SOCKETIO.on('news')
 def get_news():
-    
+    '''Retrieve covid-19 articles'''
     headline = []
     snippet = []
     url = []
-    
-    BASE_URL = 'https://api.nytimes.com/svc/search/v2/articlesearch.json'
-    params = {'q': 'corona','api-key': os.getenv('NYT_KEY')}
-    response = requests.get(BASE_URL, params=params)
+
+    base_url = 'https://api.nytimes.com/svc/search/v2/articlesearch.json'
+    params = {'q': 'corona', 'api-key': os.getenv('NYT_KEY')}
+    response = requests.get(base_url, params=params)
     data = response.json()
-    index = 10
-    for i in range(index):
-        if len(data['response']['docs'][i]['headline']['main']) == 0:
-            continue
-        
-        elif len(data['response']['docs'][i]['snippet']) == 0:
+    ind = 10
+    for i in range(ind):
+        if len(data['response']['docs'][i]['headline']['main']) == 0 or len(
+                data['response']['docs'][i]['snippet']) == 0:
             continue
         headline.append(data['response']['docs'][i]['headline']['main'])
         snippet.append(data['response']['docs'][i]['snippet'])
         url.append(data['response']['docs'][i]['web_url'])
-    
-    SOCKETIO.emit('news', {'headline' : headline,
-                            'snippet' : snippet,
-                            'url' : url,
-                            })
+
+    SOCKETIO.emit('news', {
+        'headline': headline,
+        'snippet': snippet,
+        'url': url,
+    })
 
 
 @SOCKETIO.on('home')
 def go_home():
+    '''Request home page'''
     SOCKETIO.emit('home')
+
 
 @SOCKETIO.on('about')
 def go_about():
+    '''Request about page'''
     SOCKETIO.emit('about')
+
 
 @SOCKETIO.on('newHomeCountry')
 def update_country(data):
@@ -284,17 +308,20 @@ def update_country(data):
     country = data['country']
     useremail = TEMPEMAIL
     print("This is the email", TEMPEMAIL)
-    user = DB.session.query(models.UserData).filter_by(
-        email=useremail).first()
+    user = DB.session.query(models.UserData).filter_by(email=useremail).first()
     print(user)
 
     user.country = country
     DB.session.commit()
     print(user.country)
-    
+
     table_content = users_table_content()
-    
-    SOCKETIO.emit('newContent', table_content, broadcast=True, include_self=False)
+
+    SOCKETIO.emit('newContent',
+                  table_content,
+                  broadcast=True,
+                  include_self=False)
+
 
 # Allow for the importing of the app in python shell
 if __name__ == "__main__":
