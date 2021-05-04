@@ -10,6 +10,8 @@ import PropTypes from 'prop-types';
 import './TableStyle.css';
 import './News.css';
 import LandingPage from './LandingPage.js';
+import SearchCountry from './SearchCountry';
+import ShowCountryStats from './ShowCountryStats';
 
 const socket = io();
 let countriesArr;
@@ -43,7 +45,16 @@ export function Table(props) {
   const [SortStat, setSortStat] = useState([]);
   const Area = props.Area;
   const setArea = props.setArea;
+  const country = props.country;
+  const setCountry = props.setCountry;
+  const statistics = props.statistics;
   var templist = [];
+
+  // Function to handle searching for a desired country
+  function onClickSearch() {
+    // Emit the 'search_country' event to the server
+    socket.emit('search_country', { country });
+  }
 
   function GetStates(country) {
     console.log('Clicked');
@@ -202,51 +213,61 @@ export function Table(props) {
     <div id="Covid19_Stats">
       <div>
         {ShowCountries === true ? (
-          <table class="center">
-            <CompareStats Area={Area} setArea={setArea} />
-            <tr>
-              <th colspan="8">Coronavirus Stats</th>
-            </tr>
-            <tr>
-              <th onClick={() => SortTable('Countries')}>
-                Countries{SortStat === 'Countries' ? (MostLeast ? '▲' : '▼') : '◆'}
-              </th>
-              <th onClick={() => SortTable('New Confirmed')}>
-                New Confirmed{SortStat === 'New Confirmed' ? (MostLeast ? '▼' : '▲') : '◆'}
-              </th>
-              <th onClick={() => SortTable('Total Confirmed')}>
-                Total Confirmed{SortStat === 'Total Confirmed' ? (MostLeast ? '▼' : '▲') : '◆'}
-              </th>
-              <th onClick={() => SortTable('New Deaths')}>
-                New Deaths{SortStat === 'New Deaths' ? (MostLeast ? '▼' : '▲') : '◆'}
-              </th>
-              <th onClick={() => SortTable('Total Deaths')}>
-                Total Deaths{SortStat === 'Total Deaths' ? (MostLeast ? '▼' : '▲') : '◆'}
-              </th>
-              <th onClick={() => SortTable('New Recovered')}>
-                New Recovered{SortStat === 'New Recovered' ? (MostLeast ? '▼' : '▲') : '◆'}
-              </th>
-              <th onClick={() => SortTable('Total Recovered')}>
-                Total Recovered{SortStat === 'Total Recovered' ? (MostLeast ? '▼' : '▲') : '◆'}
-              </th>
-              <th></th>
-            </tr>
-            {newpos.map((pos, index) => (
-              <MakeTable
-                countries={Countries[pos]}
-                newconfirmed={NewConfirmed[pos]}
-                totalconfirmed={TotalConfirmed[pos]}
-                newdeaths={NewDeaths[pos]}
-                totaldeaths={TotalDeaths[pos]}
-                newrecovered={NewRecovered[pos]}
-                totalrecovered={TotalRecovered[pos]}
-                index={index}
-                GetStates={GetStates}
-                Area={Area}
-                setArea={setArea}
-              />
-            ))}
-          </table>
+          <>
+            <SearchCountry
+              onChange={(event) => setCountry(event.target.value)}
+              value={country}
+              disabled={country.length === 0}
+              onClick={onClickSearch}
+              countryStatistics={statistics}
+            />
+            <ShowCountryStats statistics={statistics} />
+            <table class="center">
+              <CompareStats Area={Area} setArea={setArea} />
+              <tr>
+                <th colspan="8">Coronavirus Stats</th>
+              </tr>
+              <tr>
+                <th onClick={() => SortTable('Countries')}>
+                  Countries{SortStat === 'Countries' ? (MostLeast ? '▲' : '▼') : '◆'}
+                </th>
+                <th onClick={() => SortTable('New Confirmed')}>
+                  New Confirmed{SortStat === 'New Confirmed' ? (MostLeast ? '▼' : '▲') : '◆'}
+                </th>
+                <th onClick={() => SortTable('Total Confirmed')}>
+                  Total Confirmed{SortStat === 'Total Confirmed' ? (MostLeast ? '▼' : '▲') : '◆'}
+                </th>
+                <th onClick={() => SortTable('New Deaths')}>
+                  New Deaths{SortStat === 'New Deaths' ? (MostLeast ? '▼' : '▲') : '◆'}
+                </th>
+                <th onClick={() => SortTable('Total Deaths')}>
+                  Total Deaths{SortStat === 'Total Deaths' ? (MostLeast ? '▼' : '▲') : '◆'}
+                </th>
+                <th onClick={() => SortTable('New Recovered')}>
+                  New Recovered{SortStat === 'New Recovered' ? (MostLeast ? '▼' : '▲') : '◆'}
+                </th>
+                <th onClick={() => SortTable('Total Recovered')}>
+                  Total Recovered{SortStat === 'Total Recovered' ? (MostLeast ? '▼' : '▲') : '◆'}
+                </th>
+                <th></th>
+              </tr>
+              {newpos.map((pos, index) => (
+                <MakeTable
+                  countries={Countries[pos]}
+                  newconfirmed={NewConfirmed[pos]}
+                  totalconfirmed={TotalConfirmed[pos]}
+                  newdeaths={NewDeaths[pos]}
+                  totaldeaths={TotalDeaths[pos]}
+                  newrecovered={NewRecovered[pos]}
+                  totalrecovered={TotalRecovered[pos]}
+                  index={index}
+                  GetStates={GetStates}
+                  Area={Area}
+                  setArea={setArea}
+                />
+              ))}
+            </table>
+          </>
         ) : null}
       </div>
 
