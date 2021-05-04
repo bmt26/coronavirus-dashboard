@@ -16,6 +16,7 @@ function SearchCountry(props) {
                 aria-label="search-input"
                 value={country}
                 type="text"
+                aria-label="search-input"
             />
             <button
                 className="searchCountryButton"
