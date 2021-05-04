@@ -1,8 +1,6 @@
 import io from 'socket.io-client';
 import { React, useState, useEffect } from 'react';
 import Authentication from './Authentication';
-import SearchCountry from './SearchCountry';
-import ShowCountryStats from './ShowCountryStats';
 import { Table } from './Table.js';
 
 import './App.css';
@@ -21,12 +19,6 @@ function App() {
   // Declare Area and setArea variables
   const [Area, setArea] = useState([]);
 
-  // Function to handle searching for a desired country
-  function onClickSearch() {
-    // Emit the 'search_country' event to the server
-    socket.emit('search_country', { country });
-  }
-
   // Functions inside of useEffect are run when variables in array changes
   useEffect(() => {
     // Listen for the 'search_country' event emitted by the server
@@ -39,15 +31,13 @@ function App() {
   return (
     <div className="App">
       <Authentication socket={socket} />
-      <SearchCountry
-        onChange={(event) => setCountry(event.target.value)}
-        value={country}
-        disabled={country.length === 0}
-        onClick={onClickSearch}
-        countryStatistics={statistics}
+      <Table
+        Area={Area}
+        setArea={setArea}
+        setCountry={setCountry}
+        country={country}
+        statistics={statistics}
       />
-      <ShowCountryStats statistics={ statistics } />
-      <Table Area={Area} setArea={setArea} />
     </div>
   );
 }
