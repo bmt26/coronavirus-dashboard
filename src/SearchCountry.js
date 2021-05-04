@@ -5,6 +5,7 @@ function SearchCountry(props) {
     const {
         onChange, country, disabled, onClick,
     } = props;
+
     // Display the search bar
     return (
         <div>
@@ -20,7 +21,8 @@ function SearchCountry(props) {
                 className="searchCountryButton"
                 type="submit"
                 disabled={disabled}
-                onClick={onClick}> Search </button>
+                onClick={onClick}> Search
+            </button>
         </div>
     );
 }
