@@ -67,6 +67,7 @@ function GoAbout(){
         />
         <UserProfile userProfile={userProfile} />
         <SetCountry />
+        <UsersTable />
       </div>
     </div>
   );
