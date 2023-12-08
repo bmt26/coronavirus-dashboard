@@ -10,24 +10,24 @@ This project allows for a user to connect and view the Coronavirus statistics of
 3. Install requests (`pip install requests`)
 4. Install Flask-SocketIO (`pip install flask-socketio`)
 5. Install Flask-CORS (`pip install flask-cors`)
-6. In project directory, install Node Modules (`npm install`)
+6. In the project directory, install Node Modules (`npm install`)
 7. Install SocketIO client (`npm install socket.io-client --save`)
 8. Include Application Dependencies (`pip install -r requirements.txt`)
-9. Install PostGreSQL (`sudo yum install postgresql postgresql-server postgresql-devel postgresql-contrib postgresql-docs`)
+9. Install PostgreSQL (`sudo yum install postgresql postgresql-server postgresql-devel postgresql-contrib postgresql-docs`)
 10. Install Psycopg2 to use SQL in Python (`pip install psycopg2-binary`)
 11. Install SQLAlchemy with Flask (`pip install Flask-SQLAlchemy==2.1`)
 
 ## Setup
 1. Install dependencies
-2. Create file `.env` in main directory
+2. Create file `.env` in the main directory
 3. Sign in or create an account on the [Coronavirus API](https://documenter.getpostman.com/view/10808728/SzS8rjbc)
 4. Obtain `username` and `password` from the Coronavirus API
 5. Sign in and create a project with Google's [Developer API](https://console.cloud.google.com/projectcreate)
 6. Create credentials for your new OAuth Webapp
 7. Obtain `CLIENT_ID` from Google's Developer API
 8. Input `REACT_APP_CLIENT_ID`, `username`, and `password` to `.env` with lines `export REACT_APP_CLIENT_ID='YOUR_ID'`, `export username='YOUR_USERNAME'`, and `export password='YOUR_PASSWORD'`
-9. Run `echo "DANGEROUSLY_DISABLE_HOST_CHECK=true" > .env.development.local` in project directory
-10. Initialize PSQL database by running `sudo service postgresql initdb`
+9. Run `echo "DANGEROUSLY_DISABLE_HOST_CHECK=true" > .env.development.local` in the project directory
+10. Initialize the PSQL database by running `sudo service postgresql initdb`
 11. Start PSQL with `sudo service postgresql start`
 12. Make a new superuser by running `sudo -u postgres createuser --superuser $USER`
 13. Create a new database with `sudo -u postgres createdb $USER`
@@ -38,26 +38,26 @@ This project allows for a user to connect and view the Coronavirus statistics of
 15. Make a new user
   * Create user: `create user {username} superuser password {'password'};`
   * Exit SQL: `\q`
-16. Save newly created username in a `sql.env` file with the following format
+16. Save the newly created username in a `sql.env` file with the following format
   * `SQL_USER={your_username}`
   * `SQL_PASSWORD={your_password}`
 
 ## Run Application
-1. Call main program (`python app.py`)
-2. Open another terminal, enter project directory and start application (`npm run start`)
-3. Preview webpage in browser
+1. Call the main program (`python app.py`)
+2. Open another terminal, enter the project directory, and start the application (`npm run start`)
+3. Preview the webpage in the browser
 4. View the Coronavirus statistics on the dashboard
-5. Log in with Google using the "Login" button and personalize your Coronavirus statistics dashboard
+5. Login with Google using the "Login" button and personalize your Coronavirus statistics dashboard
 
 ## Deploy to Heroku
 1. Install Heroku CLI: `npm install -g heroku`
 2. [Create an account](https://signup.heroku.com/login) on Heroku
-3. Create file `requirements.txt` with all non-standard dependencies, separated by a new line
-4. Allow Heroku to run application by creating file `Procfile` and add line `web: python app.py`
+3. Create the file `requirements.txt` with all non-standard dependencies, separated by a new line
+4. Allow Heroku to run the application by creating the file `Procfile` and adding the line `web: python app.py`
 5. Add and commit all modified files to Git
-6. Log into Heroku using command `heroku login -i` in terminal
-7. Create Heroku application using `heroku create --buildpack heroku/python`
-8. Add NodeJS Buildpack with command `heroku buildpacks:add --index 1 heroku/nodejs`
+6. Log into Heroku using the command `heroku login -i` in terminal
+7. Create a Heroku application using `heroku create --buildpack heroku/python`
+8. Add NodeJS Buildpack with the command `heroku buildpacks:add --index 1 heroku/nodejs`
 9. Create a new remote database in your Heroku application with `heroku addons:create heroku-postgresql:hobby-dev`
 10. Get the configuration variables set by Heroku using `heroku config`
 11. Create a .env file and set the variable by running `touch .env && echo "DATABASE_URL='copy-paste-database-url'" > .env`
@@ -82,15 +82,15 @@ This project allows for a user to connect and view the Coronavirus statistics of
 ```
 3. Confirm that the Heroku remote database has been updated.
   * Open interactive SQL shell with `heroku pg:psql`
-  * List all tables in remote database by running `\d`
+  * List all tables in the remote database by running `\d`
   * Query the data using `SELECT * FROM user_data;`
 
 ## Technical Issues
 1. `Invalid DOM property 'class'` upon rendering various components
   * Previously: In component, `class` was set using `class=...`
   * Fix: Replace `class=...` to `className=...`
-2. `HTTP 404 Error` when navigating to Heroku-deployed application
-  * Previously: Did not have buildpacks added to Heroku application
+2. `HTTP 404 Error` when navigating to the Heroku-deployed application
+  * Previously: Did not have buildpacks added to the Heroku application
   * Fix: Add heroku buildpacks `heroku/python` and `heroku/nodejs`
 3. `HTTP 400 Error` when Heroku-deployed application tries to connect with Server
   * Previously: Line 42 of `app.py` contained `MY_CORS_allowed_origins`
