@@ -2,7 +2,7 @@
 * Sprint 2 Heroku Link: https://coronavirus-dashboard-sprint2.herokuapp.com/
 
 # CS490 Project 3 - Coronavirus Dashboard
-This web dashboard allows for a user to connect and view the Coronavirus statistics of all countries. Upon clicking the name of a country in the statistics table, a user can view the Coronavirus statistics of the states/territories in that country. Upon user login, a user can set their "Home" country to personalize their Coronavirus statistics dashboard.
+This web dashboard allows a user to connect and view the Coronavirus statistics of all countries. Upon clicking the name of a country in the statistics table, a user can view the Coronavirus statistics of the states/territories in that country. Upon login, a user can set their "Home" country to personalize their Coronavirus statistics dashboard.
 
 ## Install Dependencies
 1. In `~/environment` directory, install Flask (`pip install Flask`)
